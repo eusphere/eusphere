@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} pushed to master
 on:
   push:
     branches:
-      - master
+      - main
   
 jobs:
   Deploy-Eusphere:
