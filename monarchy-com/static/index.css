@@ -23,9 +23,8 @@ body {
 }
 
 #root .carousel {
-  width: 100vw;
+  width: 100%;
   flex-grow: 1;
-  background-color: #641005ff;
   display: flex;
   flex-direction: row;
   overflow: hidden;
@@ -35,6 +34,13 @@ body {
   height: 100%;
   object-fit: cover;
   animation: slide 20s linear infinite;
+  opacity: 0.5;
+  transition: opacity 0.5s ease;
+}
+
+#root .carousel img:hover {
+  opacity: 1.0;
+
 }
 
 /* Add keyframes for the sliding animation */
@@ -43,12 +49,6 @@ body {
     transform: translateX(0%);
   }
   100% {
-    transform: translateX(-100%);
+    transform: translateX(-400%);
   }
-}
-
-#root .banner {
-  width: 100vw;
-  height: 20vh;
-  background-color: #110000FF;
 }
