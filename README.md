@@ -1,3 +1,5 @@
+[![Merge](https://github.com/eusphere/eusphere/actions/workflows/merge.yml/badge.svg)](https://github.com/eusphere/eusphere/actions/workflows/merge.yml)
+
 # Eusphere
 
 This repo contains all the marketing and policy pages for Eusphere.
