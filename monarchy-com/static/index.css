@@ -1,7 +1,15 @@
+/**
+ * https://coolors.co/110000-641005-dc9b22-fce9e7
+ * --licorice: #110000FF;
+ * --blood-red: #611005FF;
+ * --harvest-gold: #dc9b22ff;
+ * --misty-rose: #fce9e7ff;
+ */
+
 body {
   margin: 0;
   padding: 0;
-  background-color: #f4f2ee;
+  background-color: #110000FF;
 }
 
 #root {
@@ -14,7 +22,33 @@ body {
   overflow: hidden;
 }
 
-#root img {
-  max-width: 100vw;
-  max-height: 100vh;
+#root .carousel {
+  width: 100vw;
+  flex-grow: 1;
+  background-color: #641005ff;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
+
+#root .carousel img {
+  height: 100%;
+  object-fit: cover;
+  animation: slide 20s linear infinite;
+}
+
+/* Add keyframes for the sliding animation */
+@keyframes slide {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+#root .banner {
+  width: 100vw;
+  height: 20vh;
+  background-color: #110000FF;
 }
