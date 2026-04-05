@@ -13,19 +13,28 @@
   </head>
   <body>
     <div id="root">
-      <header class="hero">
-        <p class="eyebrow">Example site</p>
-        <h1>Connie Adu</h1>
-        <p class="lede">
-          This is a placeholder landing page served from S3 and CloudFront—same deploy pattern as
-          <span class="mono">eusphere-co</span>. Replace this copy when you are ready.
-        </p>
-        <p class="hint">
-          Static assets live under <span class="mono">/static/</span>. Preview locally with
-          <span class="mono">./release/local.sh</span> (opens nothing to AWS). Pushes to <span class="mono">main</span> deploy via GitHub Actions
-          (<span class="mono">release/prod.sh</span>).
-        </p>
-      </header>
+      <div class="left"></div>
+      <div class="center">
+        <header class="hero">
+          <img src="/static/img/hero.jpg" alt="Hitched" />
+        </header>
+        <section class="greeting" aria-label="Introduction">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore
+            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat.
+          </p>
+          <p>
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+          <p>
+            Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Vestibulum id ligula porta felis euismod
+            semper. Curabitur blandit tempus porttitor.
+          </p>
+        </section>
+      </div>
+      <div class="right"></div>
     </div>
   </body>
 </html>
