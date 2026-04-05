@@ -30,7 +30,8 @@ variable "acm_certificate_arn" {
 
 variable "web_acl_id" {
   type        = string
-  description = "WAFv2 Web ACL ARN attached to the distribution."
+  description = "Regional WAF Web ACL ARN for CloudFront (format arn:aws:wafv2:us-east-1:...:global/webacl/...). Leave empty to attach no WAF."
+  default     = ""
 }
 
 variable "s3_domain_name" {

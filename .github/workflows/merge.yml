@@ -39,3 +39,20 @@ jobs:
         run: |
           cd monarchy-com
           ./release/prod.sh
+
+  Deploy-Connieadu:
+    name: Deploy / connieadu.com
+    runs-on: ubuntu-latest
+    environment: prod
+    steps:
+      - name: Cloning source
+        uses: actions/checkout@v4
+      - name: Release
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ vars.AWS_REGION }}
+          AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
+        run: |
+          cd connieadu-com
+          ./release/prod.sh

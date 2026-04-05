@@ -36,6 +36,15 @@ terraform apply
 
 Or set `TF_CLI_ARGS_init=-backend-config=backend.hcl` so plain `terraform init` works.
 
+## Site bucket and CloudFront access
+
+The **`eusphere`** website origin bucket is in `s3.tf` (imported; `prevent_destroy` on the bucket). The bucket policy allows **`s3:GetObject`** for `eusphere/*` from CloudFront using one IAM statement per distribution (`AWS:SourceArn` = that distribution’s ARN). Add a new statement in `data.aws_iam_policy_document.eusphere_cloudfront` when you add another `module` in `cloudfront.tf`.
+
+## New site (e.g. connieadu.com)
+
+- **Origin Access Control** — reuse an existing OAC id for `eusphere` (same as another tenant) unless you need a separate OAC for policy reasons. Pass `origin_access_control_id` into the module.
+- **WAF** (`web_acl_id`) is optional. Other tenants use Web ACL ARNs from the CloudFront / WAF console; set `web_acl_id` on the module when you have one.
+
 ## Destroying bootstrap resources
 
 The state bucket and lock table use `prevent_destroy`. Remove those `lifecycle` blocks in `bootstrap/main.tf` only if you intentionally tear down remote state (and have backups).
