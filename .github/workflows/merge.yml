@@ -6,8 +6,32 @@ on:
       - main
   
 jobs:
+  Changes:
+    name: Change detection
+    runs-on: ubuntu-latest
+    outputs:
+      eusphere: ${{ steps.filter.outputs.eusphere }}
+      monarchy: ${{ steps.filter.outputs.monarchy }}
+      connieadu: ${{ steps.filter.outputs.connieadu }}
+    steps:
+      - name: Cloning source
+        uses: actions/checkout@v4
+      - name: Path filter
+        uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            eusphere:
+              - 'eusphere-co/**'
+            monarchy:
+              - 'monarchy-com/**'
+            connieadu:
+              - 'connieadu-com/**'
+
   Deploy-Eusphere:
     name: Deploy / eusphere.co
+    needs: Changes
+    if: needs.Changes.outputs.eusphere == 'true'
     runs-on: ubuntu-latest
     environment: prod
     steps:
@@ -25,6 +49,8 @@ jobs:
 
   Deploy-Monarchy:
     name: Deploy / monarchy1.com
+    needs: Changes
+    if: needs.Changes.outputs.monarchy == 'true'
     runs-on: ubuntu-latest
     environment: prod
     steps:
@@ -42,6 +68,8 @@ jobs:
 
   Deploy-Connieadu:
     name: Deploy / connieadu.com
+    needs: Changes
+    if: needs.Changes.outputs.connieadu == 'true'
     runs-on: ubuntu-latest
     environment: prod
     steps:
