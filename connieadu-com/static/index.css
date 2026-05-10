@@ -4,134 +4,93 @@
   box-sizing: border-box;
 }
 
-/*
-  AC Wedding palette (from style guide)
-  Merlot:        #350b16
-  Pink (top→bt): #a64467 → #f17e9d
-  Green (top→bt): #7a9155 → #a8c45d
-  Taupe:         #d4c1b9
-  Cream:         #f5f2ed
-  Merlot (bg):   #1a050b — merlot rgb(53,11,22) scaled ×0.5 toward black (same hue)
-  Merlot (bg, light): #3d242d — lighter merlot band behind content / under film strip gutters
-  Merlot (bg, sides): #0d0205 — reference; side columns stay transparent so the hero shows through SVG gutters
-*/
 :root {
-  --ac-merlot: #350b16;
   --ac-merlot-bg: #1a050b;
-  --ac-merlot-bg-light: #3d242d;
-  --ac-merlot-bg-sides: #1a050b;
-  /*
-    Inline SVG so the film strip does not depend on a second HTTP request (CDN MIME types,
-    wrong /static/ base, etc.). Background-image + SVG is supported; external url() often is not.
-    Keep merlot-round-tile.svg in sync (same geometry + fill).
-  */
-  /* 36×24 rounded rect, 12px inset → 60×48; flat black stamps; gutters transparent */
-  --ac-film-strip-tile: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2260%22%20height%3D%2248%22%20viewBox%3D%220%200%2060%2048%22%3E%20%3Crect%20x%3D%2212%22%20y%3D%2212%22%20width%3D%2236%22%20height%3D%2224%22%20rx%3D%228%22%20ry%3D%228%22%20fill%3D%22%23000000%22/%3E%20%3C/svg%3E");
-  --ac-pink-top: #a64467;
-  --ac-pink-bottom: #f17e9d;
-  --ac-green-top: #7a9155;
-  --ac-green-bottom: #a8c45d;
-  --ac-taupe: #d4c1b9;
-  --ac-cream: #f5f2ed;
+  --ac-merlot: #450419;
+  --ac-merlot-text: #E9E1C9;
+  --ac-font-header: Georgia, "Times New Roman", Times, serif;
+  --ac-font-body: Avenir, Helvetica, Arial, sans-serif;
+}
 
-  --ac-border-radius: 0px;
-  /* Hero vignette: radial gradient overlay (center clear → edges darker) */
-  --ac-hero-vignette: radial-gradient(
-    ellipse 85% 80% at 50% 42%,
-    rgb(0 0 0 / 0) 35%,
-    rgb(0 0 0 / 0.22) 70%,
-    rgb(0 0 0 / 0.5) 100%
-  );
+body,
+header,
+section {
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  margin: 0;
-  padding: 0;
   background-color: var(--ac-merlot-bg);
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  font-family: var(--ac-font-body);
   -webkit-font-smoothing: antialiased;
 }
 
 #root {
   display: flex;
+  flex-direction: column; 
   min-height: 100vh;
-  width: 100vw;
-  /* Shows through transparent .center (same as body) */
-  background-color: var(--ac-merlot-bg);
-}
-
-.center {
-  position: relative;
-  z-index: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-width: 0;
   max-width: 600px;
   margin: 0 auto;
 }
 
-.left,
-.right {
-  position: relative;
-  z-index: 1;
-  flex: 1;
-  min-width: 60px; /* one full film-strip tile width */
-  /* No background-color: transparent gutters in the SVG must show the hero (painted under this layer) */
-  background-color: transparent;
-  background-image: var(--ac-film-strip-tile);
-  background-repeat: repeat-y;
-  background-size: 60px 48px;
-}
-
-.left {
-  background-position: right top;
-}
-
-.right {
-  background-position: left top;
-}
-
-/* Bleeds 60px past each side of the column; .left/.right (z-index 1) paint the film strip on top */
-.hero {
-  position: relative;
-  width: calc(100% + 120px);
-  margin: 0 -60px;
-  overflow: hidden;
-  border-bottom-left-radius: var(--ac-border-radius);
-  border-bottom-right-radius: var(--ac-border-radius);
-}
-
-/* Vignette: no CSS filter on <img>; overlay keeps photo editable and works with rounded corners */
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background: var(--ac-hero-vignette);
-}
-
-.hero img {
-  display: block;
+header img {
   width: 100%;
-  max-width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
-.center section {
-  width: calc(100% + 120px);
-  margin: 0px -60px;
-  padding: 60px 60px;
-  box-sizing: border-box;
-  background-color: var(--ac-merlot-bg-light);
-  color: var(--ac-taupe);
+section {
+  padding-bottom: 48px;
+}
+
+section:nth-child(even) {
+  background-color: var(--ac-merlot);
+  color: var(--ac-merlot-text);
+}
+
+h1, h2 {
+  font-family: var(--ac-font-header);
+  text-transform: uppercase;
+}
+
+h1 {
+  padding: 16px;
+  margin: 32px 0 16px 0;
   text-align: center;
-  font-size: 1rem;
-  line-height: 1.5;
-  border-radius: var(--ac-border-radius);
 }
 
-.center section p {
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+h2 {
+  padding: 8px 16px;
+  margin: 16px 0 0 0;
+}
+
+.schedule {
+  display: flex;
+}
+
+.schedule .time {
+  width: 30%;
+  text-align: right;
+  padding-right: 8px;
+}
+
+.schedule .label {
+  width: 70%;
+  font-family: var(--ac-font-body);
+}
+
+.schedule .label h2 {
+  padding-left: 0;
+}
+
+.schedule .label small {
+  font-weight: bold;
+}
+
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
