@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="48 60 278 268" width="400" height="385">
+  <!--
+    Triangulation: circle centers at vertices of an equilateral triangle (side 120).
+    Three different radii; all circles pass through one common point P (each r = distance center→P).
+  -->
+  <defs>
+    <style type="text/css"><![CDATA[
+      .circ { fill: none; stroke: #111; stroke-width: 1.25; }
+    ]]></style>
+  </defs>
+  <rect x="48" y="60" width="278" height="268" fill="#fff"/>
+  <polygon fill="#9999FF" points="200,130.718 140,234.641 260,234.641"/>
+  <circle class="circ" cx="200" cy="130.7179676972449" r="63.091104627799325"/>
+  <circle class="circ" cx="140" cy="234.64101615137753" r="86.27430821758027"/>
+  <circle class="circ" cx="260" cy="234.64101615137753" r="61.9940017938997"/>
+</svg>

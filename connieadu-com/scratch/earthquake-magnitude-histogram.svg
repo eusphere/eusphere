@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 408" width="800" height="408">
+  <!-- Linear height: h = max(320 * (events/year) / 1e6, 1); baseline y = 320 -->
+  <g transform="translate(40, 24)" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#1a1a1a">
+    <rect x="10" y="0" width="96" height="320" fill="#64748b" rx="3"/>
+    <rect x="118" y="288" width="96" height="32" fill="#64748b" rx="3"/>
+    <rect x="226" y="316" width="96" height="4" fill="#d4a017" rx="1"/>
+    <rect x="334" y="319" width="96" height="1" fill="#e6b422"/>
+    <rect x="442" y="319" width="96" height="1" fill="#e6b422"/>
+    <rect x="550" y="319" width="96" height="1" fill="#e6b422"/>
+    <rect x="658" y="319" width="96" height="1" fill="#c9a227"/>
+
+    <!-- Bracket over last 5 gold columns (4.0-4.9 ... 8.0+) -->
+    <g fill="none" stroke="#1a1a1a" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M 226 295 L 754 295 M 226 295 L 226 310 M 754 295 L 754 310"/>
+    </g>
+    <text x="490" y="282" text-anchor="middle" fill="#1a1a1a" font-size="13">~40</text>
+
+    <g text-anchor="middle" dominant-baseline="alphabetic">
+      <text x="58" y="368">2.0-2.9</text>
+      <text x="166" y="368">3.0-3.9</text>
+      <text x="274" y="368">4.0-4.9</text>
+      <text x="382" y="368">5.0-5.9</text>
+      <text x="490" y="368">6.0-6.9</text>
+      <text x="598" y="368">7.0-7.9</text>
+      <text x="706" y="368">8.0+</text>
+    </g>
+  </g>
+</svg>

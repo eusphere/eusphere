@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 410" width="850" height="410">
+  <defs>
+    <linearGradient id="innerCoreGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#dcdcdc"/>
+      <stop offset="100%" stop-color="#a8a8a8"/>
+    </linearGradient>
+    <style type="text/css"><![CDATA[
+      .title { font: 700 15px system-ui, -apple-system, "Segoe UI", sans-serif; fill: #111; }
+      .label { font: 12px system-ui, -apple-system, "Segoe UI", sans-serif; fill: #111; }
+      .small { font: 11px system-ui, -apple-system, "Segoe UI", sans-serif; fill: #111; }
+      .waves { fill: none; stroke: #111; stroke-width: 1.1; stroke-dasharray: 5 4; stroke-linecap: round; }
+      .rim { fill: none; stroke: #111; stroke-width: 1.2; }
+      .shadow { fill: none; stroke: #111; stroke-width: 7; stroke-linecap: butt; }
+    ]]></style>
+  </defs>
+
+  <!-- Left: S-wave patterns -->
+  <g id="s-panel">
+    <text x="48" y="34" class="title">S-wave patterns</text>
+
+    <circle cx="210" cy="210" r="165" fill="#e6e6e6" stroke="#111" stroke-width="1.2"/>
+    <circle cx="210" cy="210" r="58" fill="#7a7a7a" stroke="#111" stroke-width="1.2"/>
+    <circle cx="210" cy="210" r="28" fill="url(#innerCoreGrad)" stroke="#111" stroke-width="1.2"/>
+
+    <text x="210" y="118" text-anchor="middle" class="label">Mantle</text>
+    <text x="210" y="218" text-anchor="middle" class="label">Core</text>
+
+    <!-- Epicentre -->
+    <g transform="translate(210, 43)">
+      <polygon points="0,-6 1.8,-1.7 6,-1.7 2.9,1.7 3.9,6.8 0,3.7 -3.9,6.8 -2.9,1.7 -6,-1.7 -1.8,-1.7" fill="#777" stroke="#111" stroke-width="0.55"/>
+    </g>
+    <text x="210" y="62" text-anchor="middle" class="small">Epi-centre</text>
+
+    <!-- S-wave rays (stop at core) -->
+    <g class="waves">
+      <path d="M 210.00,45.00 Q 201.56,174.73 182.77,261.21"/>
+      <path d="M 210.00,45.00 Q 198.93,173.02 174.29,255.70"/>
+      <path d="M 210.00,45.00 Q 196.64,170.88 166.90,248.81"/>
+      <path d="M 210.00,45.00 Q 194.75,168.38 160.81,240.74"/>
+      <path d="M 210.00,45.00 Q 193.33,165.59 156.22,231.73"/>
+      <path d="M 210.00,45.00 Q 192.02,158.85 152.00,210.00"/>
+      <path d="M 210.00,45.00 Q 193.33,152.11 156.22,188.27"/>
+      <path d="M 210.00,45.00 Q 194.75,149.32 160.81,179.26"/>
+      <path d="M 210.00,45.00 Q 196.64,146.82 166.90,171.19"/>
+      <path d="M 210.00,45.00 Q 198.93,144.68 174.29,164.30"/>
+      <path d="M 210.00,45.00 Q 201.56,142.97 182.77,158.79"/>
+    </g>
+
+    <text x="49" y="258" class="small">103&#176;</text>
+    <text x="355" y="258" text-anchor="end" class="small">103&#176;</text>
+
+    <path class="shadow" d="M 49.23 247.12 A 165 165 0 1 1 370.77 247.12"/>
+    <text x="210" y="392" text-anchor="middle" class="label">S-wave shadow zone</text>
+  </g>
+
+  <!-- Right: P-wave patterns -->
+  <g id="p-panel">
+    <text x="478" y="34" class="title">P-wave patterns</text>
+
+    <circle cx="640" cy="210" r="165" fill="#e6e6e6" stroke="#111" stroke-width="1.2"/>
+    <circle cx="640" cy="210" r="58" fill="#7a7a7a" stroke="#111" stroke-width="1.2"/>
+    <circle cx="640" cy="210" r="28" fill="url(#innerCoreGrad)" stroke="#111" stroke-width="1.2"/>
+
+    <text x="640" y="118" text-anchor="middle" class="label">Mantle</text>
+    <text x="640" y="218" text-anchor="middle" class="label">Core</text>
+
+    <g transform="translate(640, 43)">
+      <polygon points="0,-6 1.8,-1.7 6,-1.7 2.9,1.7 3.9,6.8 0,3.7 -3.9,6.8 -2.9,1.7 -6,-1.7 -1.8,-1.7" fill="#777" stroke="#111" stroke-width="0.55"/>
+    </g>
+    <text x="640" y="62" text-anchor="middle" class="small">Epi-centre</text>
+
+    <!-- Mantle-only P (six rays) -->
+    <g class="waves">
+      <path d="M 640.00,45.00 Q 655.37,93.22 682.71,50.62"/>
+      <path d="M 640.00,45.00 Q 669.70,99.16 722.50,67.11"/>
+      <path d="M 640.00,45.00 Q 682.00,108.60 756.67,93.33"/>
+      <path d="M 640.00,45.00 Q 624.63,93.22 597.29,50.62"/>
+      <path d="M 640.00,45.00 Q 610.30,99.16 557.50,67.11"/>
+      <path d="M 640.00,45.00 Q 598.00,108.60 523.33,93.33"/>
+      <!-- Core paths -->
+      <path d="M 640.00,45.00 C 545.00,235.00 595.00,305.00 662.96,373.39"/>
+      <path d="M 640.00,45.00 C 545.00,235.00 595.00,305.00 645.76,374.90"/>
+      <path d="M 640.00,45.00 C 545.00,235.00 595.00,305.00 628.49,374.60"/>
+      <path d="M 640.00,45.00 C 735.00,235.00 685.00,305.00 611.35,372.49"/>
+      <path d="M 640.00,45.00 C 735.00,235.00 685.00,305.00 594.52,368.61"/>
+    </g>
+
+    <text x="479" y="258" class="small">103&#176;</text>
+    <text x="785" y="258" text-anchor="end" class="small">103&#176;</text>
+    <text x="530" y="348" class="small">150&#176;</text>
+    <text x="752" y="348" text-anchor="end" class="small">150&#176;</text>
+
+    <path class="shadow" d="M 479.23 247.12 A 165 165 0 0 0 557.50 352.89"/>
+    <path class="shadow" d="M 800.77 247.12 A 165 165 0 0 0 722.50 352.89"/>
+
+    <text x="505" y="318" class="small" transform="rotate(-48 505 318)">P-wave shadow zone</text>
+    <text x="778" y="318" text-anchor="end" class="small" transform="rotate(48 778 318)">P-wave shadow zone</text>
+
+    <text x="640" y="392" text-anchor="middle" class="label">P-waves that passed through the core</text>
+  </g>
+</svg>
