@@ -8,6 +8,8 @@
   --ac-merlot-bg: #1a050b;
   --ac-merlot: #450419;
   --ac-merlot-text: #E9E1C9;
+  --ac-beige: #E9E1C9;
+  --ac-beige-text: #450419;
   --ac-font-header: Georgia, "Times New Roman", Times, serif;
   --ac-font-body: Avenir, Helvetica, Arial, sans-serif;
 }
@@ -29,7 +31,7 @@ body {
   display: flex;
   flex-direction: column; 
   min-height: 100vh;
-  max-width: 600px;
+  max-width: 640px;
   margin: 0 auto;
 }
 
@@ -44,9 +46,15 @@ section {
   padding-bottom: 48px;
 }
 
-section:nth-child(even) {
+/* Odd/even among <section> siblings only — ignores header, .photo, etc. */
+section:nth-of-type(odd) {
   background-color: var(--ac-merlot);
   color: var(--ac-merlot-text);
+}
+
+section:nth-of-type(even) {
+  background-color: var(--ac-beige);
+  color: var(--ac-beige-text);
 }
 
 h1, h2 {
@@ -61,7 +69,7 @@ h1 {
 }
 
 h2 {
-  padding: 8px 16px;
+  padding: 8px 16px 4px 16px;
   margin: 16px 0 0 0;
 }
 
@@ -86,6 +94,10 @@ h2 {
 
 .schedule .label small {
   font-weight: bold;
+}
+
+section .schedule + .schedule {
+  margin-top: 12px;
 }
 
 .photo img {
