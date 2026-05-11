@@ -27,6 +27,10 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+small {
+  font-weight: bold;
+}
+
 #root {
   display: flex;
   flex-direction: column; 
@@ -57,6 +61,37 @@ section:nth-of-type(even) {
   color: var(--ac-beige-text);
 }
 
+section a {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+section:nth-of-type(odd) a {
+  border-bottom: 1px dotted var(--ac-beige);
+  color: var(--ac-beige);
+}
+
+section:nth-of-type(even) a {
+  border-bottom: 1px dotted var(--ac-merlot);
+  color: var(--ac-merlot);
+}
+
+section.accommodations > p,
+section.accommodations > small {
+  display: block;
+  padding: 0 16px 0 16px;
+}
+
+section.accommodations > h2 {
+  margin-top: 32px;
+}
+
+section.accommodations > * {
+  max-width: 534px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 h1, h2 {
   font-family: var(--ac-font-header);
   text-transform: uppercase;
@@ -71,6 +106,7 @@ h1 {
 h2 {
   padding: 8px 16px 4px 16px;
   margin: 16px 0 0 0;
+  font-size: 120%;
 }
 
 .schedule {
@@ -92,17 +128,26 @@ h2 {
   padding-left: 0;
 }
 
-.schedule .label small {
-  font-weight: bold;
+.schedule .label p {
+  margin-right: 16px;
 }
 
 section .schedule + .schedule {
   margin-top: 12px;
 }
 
-.photo img {
+.photo img, .photo4 img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.photo4 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
 }
