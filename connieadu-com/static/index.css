@@ -4,13 +4,21 @@
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: "Spalla TN Trial";
+  src: url("/static/fonts/Spalla-Light-TRIAL.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --ac-merlot-bg: #1a050b;
   --ac-merlot: #450419;
   --ac-merlot-text: #E9E1C9;
   --ac-beige: #E9E1C9;
   --ac-beige-text: #450419;
-  --ac-font-header: Georgia, "Times New Roman", Times, serif;
+  --ac-font-header: "Spalla TN Trial", Georgia, "Times New Roman", Times, serif;
   --ac-font-body: Avenir, Helvetica, Arial, sans-serif;
 }
 
@@ -35,7 +43,7 @@ small {
   display: flex;
   flex-direction: column; 
   min-height: 100vh;
-  max-width: 640px;
+  max-width: 720px;
   margin: 0 auto;
 }
 
@@ -92,8 +100,10 @@ section.accommodations > * {
   margin-right: auto;
 }
 
-h1, h2 {
+h1,
+h2 {
   font-family: var(--ac-font-header);
+  font-weight: 300;
   text-transform: uppercase;
 }
 
@@ -101,12 +111,16 @@ h1 {
   padding: 16px;
   margin: 32px 0 16px 0;
   text-align: center;
+  font-size: 72px;
+  line-height: 1.05;
 }
 
 h2 {
   padding: 8px 16px 4px 16px;
   margin: 16px 0 0 0;
-  font-size: 120%;
+  /* ~22px phone → up to 40px wide screens */
+  font-size: clamp(22px, 2.5vw + 14px, 40px);
+  line-height: 1.15;
 }
 
 .schedule {
