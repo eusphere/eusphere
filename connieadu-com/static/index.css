@@ -153,6 +153,7 @@ h2 {
 
 .schedule .label p {
   margin-right: 16px;
+  margin-bottom: 0;
 }
 
 section .schedule + .schedule {
