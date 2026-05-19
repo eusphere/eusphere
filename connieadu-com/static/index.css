@@ -185,7 +185,7 @@ section .schedule + .schedule {
 
 .palette small {
   display: block;
-  margin-top: 16px;
+  margin-top: 24px;
   font-size: 120%;
   text-align: center;
 }
