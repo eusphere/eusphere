@@ -57,5 +57,5 @@ module "abhandaru_com" {
   # Same OAC as eusphere_co: one OAC can serve multiple distributions to this bucket.
   origin_access_control_id = "E2020DPKXTFUA9"
   viewer_protocol_policy   = "redirect-to-https"
-  acm_certificate_arn      = "REPLACE_WITH_ACM_CERTIFICATE_ARN"
+  acm_certificate_arn      = "arn:aws:acm:us-east-1:930597685973:certificate/f0ef3b21-ee36-46d0-b789-0d415beb8044"
 }
