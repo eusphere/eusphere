@@ -75,6 +75,25 @@ data "aws_iam_policy_document" "eusphere_cloudfront" {
       values   = [module.connieadu_com.distribution_arn]
     }
   }
+
+  statement {
+    sid    = "AllowCloudFrontServicePrincipal-abhandaru"
+    effect = "Allow"
+
+    principals {
+      type        = "Service"
+      identifiers = ["cloudfront.amazonaws.com"]
+    }
+
+    actions   = ["s3:GetObject"]
+    resources = ["${aws_s3_bucket.eusphere.arn}/*"]
+
+    condition {
+      test     = "StringEquals"
+      variable = "AWS:SourceArn"
+      values   = [module.abhandaru_com.distribution_arn]
+    }
+  }
 }
 
 resource "aws_s3_bucket_policy" "eusphere_cloudfront" {
@@ -85,5 +104,6 @@ resource "aws_s3_bucket_policy" "eusphere_cloudfront" {
     module.eusphere_co,
     module.monarchy,
     module.connieadu_com,
+    module.abhandaru_com,
   ]
 }

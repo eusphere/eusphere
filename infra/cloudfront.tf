@@ -44,3 +44,18 @@ module "connieadu_com" {
   viewer_protocol_policy   = "redirect-to-https"
   acm_certificate_arn      = "arn:aws:acm:us-east-1:930597685973:certificate/4c35ff56-ae0a-404c-916f-0c3c36435dff"
 }
+
+module "abhandaru_com" {
+  source = "./modules/cloudfront"
+
+  aliases = [
+    "www.abhandaru.com",
+    "abhandaru.com",
+  ]
+  origin_id                = "s3-abhandaru-com"
+  origin_path              = "/abhandaru-com"
+  # Same OAC as eusphere_co: one OAC can serve multiple distributions to this bucket.
+  origin_access_control_id = "E2020DPKXTFUA9"
+  viewer_protocol_policy   = "redirect-to-https"
+  acm_certificate_arn      = "REPLACE_WITH_ACM_CERTIFICATE_ARN"
+}
