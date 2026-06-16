@@ -2,6 +2,7 @@
 
 # hand-roll the files that would be in `build`
 aws s3 cp ./static/favicon.ico s3://eusphere/abhandaru-com/favicon.ico
+aws s3 cp ./static/resume.pdf s3://eusphere/abhandaru-com/resume.pdf
 aws s3 cp ./index.html s3://eusphere/abhandaru-com/index.html
 aws s3 sync ./static s3://eusphere/abhandaru-com/static --delete
 
