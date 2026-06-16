@@ -1,12 +1,21 @@
 import * as THREE from "https://esm.sh/three@0.166.1";
 import { OrbitControls } from "https://esm.sh/three@0.166.1/examples/jsm/controls/OrbitControls.js";
 
-const FIELD_RADIUS = 600;
+const FOV = 90;
+const FIELD_RADIUS = 400;
 const GRASS_COUNT = 80000;
 const BASE_DISC_COLORS = {
   DARK: "#345e2f",
   MID: "#3f6f37",
   SOFT: "#4e7e43",
+};
+const BASE_DISC_VARIATION = {
+  MACRO_SCALE: 0.0048,
+  MICRO_SCALE: 0.038,
+  DETAIL_SCALE: 0.11,
+  MACRO_WEIGHT: 0.58,
+  MICRO_WEIGHT: 0.3,
+  DETAIL_WEIGHT: 0.12,
 };
 const GRASS_COLORS = {
   BASE: "#4d7d41",
@@ -32,12 +41,12 @@ scene.fog = new THREE.Fog(
 );
 
 const camera = new THREE.PerspectiveCamera(
-  60,
+  FOV,
   window.innerWidth / window.innerHeight,
   0.1,
   3000
 );
-camera.position.set(100, 20, 0);
+camera.position.set(50, 10, 0);
 camera.lookAt(0, 0, 0);
 
 const controls = new OrbitControls(camera, renderer.domElement);
@@ -47,8 +56,9 @@ controls.autoRotate = true;
 controls.autoRotateSpeed = 0.1;
 controls.target.set(0, 0, 0);
 controls.minDistance = 30;
-controls.maxDistance = 260;
-controls.maxPolarAngle = Math.PI * 0.49;
+controls.maxDistance = 120;
+controls.minPolarAngle = Math.PI / 6;
+controls.maxPolarAngle = Math.PI * 0.4;
 controls.update();
 
 const ambientLight = new THREE.AmbientLight(0xf5f0e8, 0.55);
@@ -114,12 +124,21 @@ const groundMaterial = new THREE.ShaderMaterial({
 
     void main() {
       vec2 p = vWorldPos.xz;
-      float macro = fbm(p * 0.0035);
-      float micro = fbm(p * 0.028 + vec2(17.0, 9.0));
-      float patches = clamp(macro * 0.75 + micro * 0.25, 0.0, 1.0);
+      float macro = fbm(p * ${BASE_DISC_VARIATION.MACRO_SCALE.toFixed(4)});
+      float micro = fbm(p * ${BASE_DISC_VARIATION.MICRO_SCALE.toFixed(3)} + vec2(17.0, 9.0));
+      float detail = noise(p * ${BASE_DISC_VARIATION.DETAIL_SCALE.toFixed(2)} + vec2(31.2, 4.7));
+      float patches = clamp(
+        macro * ${BASE_DISC_VARIATION.MACRO_WEIGHT.toFixed(2)} +
+        micro * ${BASE_DISC_VARIATION.MICRO_WEIGHT.toFixed(2)} +
+        detail * ${BASE_DISC_VARIATION.DETAIL_WEIGHT.toFixed(2)},
+        0.0,
+        1.0
+      );
+      float broadSweep = fbm((p + vec2(90.0, -35.0)) * 0.0018);
 
       vec3 color = mix(uColorDark, uColorMid, patches);
-      color = mix(color, uColorSoft, smoothstep(0.65, 0.95, micro));
+      color = mix(color, uColorSoft, smoothstep(0.52, 0.95, micro));
+      color *= mix(0.9, 1.07, broadSweep);
 
       float lambert = max(dot(vec3(0.0, 1.0, 0.0), normalize(uLightDir)), 0.0);
       color *= (0.78 + lambert * 0.22);
