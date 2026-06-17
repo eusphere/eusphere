@@ -4,6 +4,15 @@ import { OrbitControls } from "https://esm.sh/three@0.166.1/examples/jsm/control
 const FOV = 90;
 const FIELD_RADIUS = 400;
 const GRASS_COUNT = 80000;
+const RUFFLE = {
+  RADIUS: 18,
+  PUSH_STRENGTH: 1,
+  TARGET_STRENGTH: 1,
+  POSITION_LERP: 0.22,
+  ATTACK_LERP: 0.22,
+  RELEASE_DAMPING: 25,
+  DIRECTION_EPSILON: 0.0001,
+};
 const BASE_DISC_COLORS = {
   DARK: "#345e2f",
   MID: "#3f6f37",
@@ -177,6 +186,9 @@ const grassMaterial = new THREE.ShaderMaterial({
     uLightDir: { value: new THREE.Vector3(0.5, 1.0, 0.35).normalize() },
     uWindDir: { value: new THREE.Vector2(0.93, 0.37).normalize() },
     uCameraPos: { value: camera.position.clone() },
+    uRufflePos: { value: new THREE.Vector3(0, 0, 0) },
+    uRuffleRadius: { value: RUFFLE.RADIUS },
+    uRuffleStrength: { value: 0 },
     uColorBase: { value: new THREE.Color(GRASS_COLORS.BASE) },
     uColorMid: { value: new THREE.Color(GRASS_COLORS.MID) },
     uColorTip: { value: new THREE.Color(GRASS_COLORS.TIP) },
@@ -188,6 +200,9 @@ const grassMaterial = new THREE.ShaderMaterial({
     uniform float uTime;
     uniform vec2 uWindDir;
     uniform vec3 uCameraPos;
+    uniform vec3 uRufflePos;
+    uniform float uRuffleRadius;
+    uniform float uRuffleStrength;
     attribute float aPhase;
     attribute float aBend;
     attribute float aTone;
@@ -213,6 +228,15 @@ const grassMaterial = new THREE.ShaderMaterial({
       vec2 windDir = normalize(uWindDir);
       worldPos.x += windDir.x * sway * rootMask * 1.2;
       worldPos.z += windDir.y * sway * rootMask * 1.2;
+
+      vec3 bladeCenter = (modelMatrix * instanceMatrix * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
+      vec2 toBlade = bladeCenter.xz - uRufflePos.xz;
+      float dist = length(toBlade);
+      float ruffle = (1.0 - smoothstep(0.0, uRuffleRadius, dist)) * uRuffleStrength;
+      vec2 ruffleDir = normalize(toBlade + vec2(${RUFFLE.DIRECTION_EPSILON.toFixed(4)}, 0.0));
+      worldPos.x += ruffleDir.x * ruffle * rootMask * ${RUFFLE.PUSH_STRENGTH.toFixed(1)};
+      worldPos.z += ruffleDir.y * ruffle * rootMask * ${RUFFLE.PUSH_STRENGTH.toFixed(1)};
+
       vWorldPos = worldPos.xyz;
       vec3 worldNormal = normalize(mat3(modelMatrix * instanceMatrix) * normal);
       vWorldNormal = worldNormal;
@@ -290,6 +314,37 @@ grass.frustumCulled = false;
 scene.add(grass);
 
 const clock = new THREE.Clock();
+let elapsedTime = 0;
+const raycaster = new THREE.Raycaster();
+const pointerNdc = new THREE.Vector2();
+const ruffleTargetPos = new THREE.Vector3();
+const ruffleCurrentPos = new THREE.Vector3();
+let ruffleTargetStrength = 0;
+let ruffleCurrentStrength = 0;
+
+function updatePointerNdc(event) {
+  const rect = renderer.domElement.getBoundingClientRect();
+  pointerNdc.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+  pointerNdc.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+}
+
+function onPointerMove(event) {
+  updatePointerNdc(event);
+  raycaster.setFromCamera(pointerNdc, camera);
+  const hit = raycaster.intersectObject(ground, false)[0];
+  if (!hit) {
+    ruffleTargetStrength = 0;
+    return;
+  }
+
+  ruffleTargetPos.copy(hit.point);
+  ruffleTargetPos.y = 0;
+  ruffleTargetStrength = RUFFLE.TARGET_STRENGTH;
+}
+
+function onPointerLeave() {
+  ruffleTargetStrength = 0;
+}
 
 function onResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
@@ -298,10 +353,24 @@ function onResize() {
 }
 
 window.addEventListener("resize", onResize);
+renderer.domElement.addEventListener("pointermove", onPointerMove);
+renderer.domElement.addEventListener("pointerleave", onPointerLeave);
 
 function animate() {
-  grassMaterial.uniforms.uTime.value = clock.getElapsedTime();
+  const deltaSeconds = clock.getDelta();
+  elapsedTime += deltaSeconds;
+  grassMaterial.uniforms.uTime.value = elapsedTime;
   grassMaterial.uniforms.uCameraPos.value.copy(camera.position);
+  ruffleCurrentPos.lerp(ruffleTargetPos, RUFFLE.POSITION_LERP);
+  if (ruffleTargetStrength > 0) {
+    ruffleCurrentStrength +=
+      (ruffleTargetStrength - ruffleCurrentStrength) * RUFFLE.ATTACK_LERP;
+  } else {
+    // Exponential decay makes affected blades linger before settling.
+    ruffleCurrentStrength *= Math.exp(-RUFFLE.RELEASE_DAMPING * deltaSeconds);
+  }
+  grassMaterial.uniforms.uRufflePos.value.copy(ruffleCurrentPos);
+  grassMaterial.uniforms.uRuffleStrength.value = ruffleCurrentStrength;
   controls.update();
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
