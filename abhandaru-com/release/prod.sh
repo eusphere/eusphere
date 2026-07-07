@@ -1,4 +1,8 @@
 #!/bin/bash
+set -euo pipefail
+
+yarn install --frozen-lockfile
+yarn build
 
 # hand-roll the files that would be in `build`
 aws s3 cp ./static/favicon.ico s3://eusphere/abhandaru-com/favicon.ico

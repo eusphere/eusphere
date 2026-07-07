@@ -1,0 +1,21 @@
+{
+  "name": "abhandaru-com",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "sirv-cli . --dev --port 4173"
+  },
+  "dependencies": {
+    "three": "^0.166.1"
+  },
+  "devDependencies": {
+    "sirv": "^3.0.2",
+    "sirv-cli": "^3.0.1",
+    "vite": "^6.3.5"
+  }
+}
