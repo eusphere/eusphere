@@ -1,28 +1,15 @@
-import * as THREE from "three";
-import { createGrass } from "./grass.js";
-import { createGround } from "./ground.js";
+import { createGarden } from "./garden.js";
 import { createScene } from "./scene.js";
 
-const { renderer, scene, camera, controls } = createScene();
-createGround(scene);
-const grassMaterial = createGrass(scene, camera);
-
-const clock = new THREE.Clock();
-
-function onResize() {
+const { renderer, scene, camera, controls, frame } = createScene();
+createGarden(scene);
+window.addEventListener("resize", () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
-}
-
-window.addEventListener("resize", onResize);
-
-function animate() {
-  grassMaterial.uniforms.uTime.value = clock.getElapsedTime();
-  grassMaterial.uniforms.uCameraPos.value.copy(camera.position);
+});
+document.getElementById("reset-view").addEventListener("click", frame);
+renderer.setAnimationLoop(() => {
   controls.update();
   renderer.render(scene, camera);
-  requestAnimationFrame(animate);
-}
-
-animate();
+});
