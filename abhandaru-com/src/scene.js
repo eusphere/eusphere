@@ -1,5 +1,9 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
+import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
+import { SSAOPass } from "three/examples/jsm/postprocessing/SSAOPass.js";
+import { OutputPass } from "three/examples/jsm/postprocessing/OutputPass.js";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 
 export function createScene() {
@@ -11,17 +15,20 @@ export function createScene() {
   renderer.toneMappingExposure = 0.9;
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.VSMShadowMap;
+  // Lighting and geometry are static; orbiting does not require fresh shadow maps.
+  renderer.shadowMap.autoUpdate = false;
+  renderer.shadowMap.needsUpdate = true;
   const scene = new THREE.Scene();
   scene.background = new THREE.Color("#8b8d7c");
-  scene.fog = new THREE.Fog("#8b8d7c", 28, 65);
+  scene.fog = new THREE.Fog("#8b8d7c", 55, 100);
   const pmrem = new THREE.PMREMGenerator(renderer);
   const room = new RoomEnvironment();
   const environment = pmrem.fromScene(room, 0.03);
   scene.environment = environment.texture;
-  scene.environmentIntensity = 0.4;
+  scene.environmentIntensity = 0.17;
   room.dispose();
   pmrem.dispose();
-  const camera = new THREE.PerspectiveCamera(36, window.innerWidth / window.innerHeight, 0.1, 100);
+  const camera = new THREE.PerspectiveCamera(36, window.innerWidth / window.innerHeight, 0.1, 120);
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.target.set(0, 0.7, 0);
   controls.enableDamping = true;
@@ -31,29 +38,73 @@ export function createScene() {
   controls.minPolarAngle = Math.PI / 6;
   controls.maxPolarAngle = Math.PI / 2.25;
   function frame() {
-    const distance = camera.aspect < 1 ? 21 : 15;
+    const distance = 15 / Math.min(1, camera.aspect);
+    controls.maxDistance = Math.max(25, distance * 1.5);
     camera.position.set(distance * 0.44, distance * 0.55, distance * 0.79);
     controls.update();
   }
   frame();
-  scene.add(new THREE.HemisphereLight(0xfff5dc, 0x69745c, 0.65));
-  const sun = new THREE.DirectionalLight(0xffe2b3, 2.0);
-  sun.position.set(-5, 9, 4);
+  scene.add(new THREE.HemisphereLight(0xfff5dc, 0x394331, 0.3));
+  const sun = new THREE.DirectionalLight(0xffe2b3, 3.1);
+  sun.position.set(-6, 7, 1);
   sun.castShadow = true;
   sun.shadow.mapSize.set(2048, 2048);
   Object.assign(sun.shadow.camera, { left: -7, right: 7, top: 7, bottom: -7, near: 0.5, far: 25 });
-  sun.shadow.normalBias = 0.035;
+  sun.shadow.normalBias = 0.015;
   sun.shadow.bias = -0.00015;
   sun.shadow.radius = 5;
   sun.shadow.blurSamples = 8;
   scene.add(sun);
-  const fill = new THREE.DirectionalLight(0xe2eadc, 0.3);
+  const fill = new THREE.DirectionalLight(0xe2eadc, 0.1);
   fill.position.set(5, 4, -5);
   scene.add(fill);
-  const floor = new THREE.Mesh(new THREE.PlaneGeometry(200, 200), new THREE.MeshStandardMaterial({ color: 0x8b8d7c, roughness: 1 }));
+  const stageMaterial=new THREE.MeshStandardMaterial({color:0x8b8d7c,roughness:1,fog:false});
+  stageMaterial.onBeforeCompile=shader=>{
+    shader.uniforms.stageBackground={value:scene.background};
+    shader.vertexShader='varying vec2 vStage;\n'+shader.vertexShader;
+    shader.vertexShader=shader.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\nvStage=(modelMatrix*vec4(position,1.0)).xz;');
+    shader.fragmentShader='varying vec2 vStage; uniform vec3 stageBackground;\n'+shader.fragmentShader;
+    shader.fragmentShader=shader.fragmentShader.replace('#include <opaque_fragment>', `
+      outgoingLight=mix(outgoingLight,stageBackground,smoothstep(12.0,35.0,length(vStage)));
+      #include <opaque_fragment>
+    `);
+  };
+  // The stage fades to the exact backdrop color well before the camera clips it.
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(2000, 2000),stageMaterial);
   floor.rotation.x = -Math.PI / 2;
   floor.position.y = -0.3;
   floor.receiveShadow = true;
   scene.add(floor);
-  return { renderer, scene, camera, controls, frame };
+  // Contact shading adds depth between moss, stones and roots without crushing highlights.
+  const target = new THREE.WebGLRenderTarget(window.innerWidth,window.innerHeight,{type:THREE.HalfFloatType,samples:2});
+  const composer = new EffectComposer(renderer,target);
+  composer.addPass(new RenderPass(scene,camera));
+  const occlusion = new SSAOPass(scene,camera,window.innerWidth,window.innerHeight,16);
+  occlusion.kernelRadius = .32;
+  occlusion.minDistance = .00015;
+  occlusion.maxDistance = .012;
+  occlusion.ssaoMaterial.uniforms.gardenCameraWorld={value:camera.matrixWorld};
+  occlusion.ssaoMaterial.fragmentShader='uniform mat4 gardenCameraWorld;\n'+occlusion.ssaoMaterial.fragmentShader;
+  occlusion.ssaoMaterial.fragmentShader=occlusion.ssaoMaterial.fragmentShader.replace(
+    'gl_FragColor = vec4( vec3( 1.0 - occlusion ), 1.0 );',
+    `vec3 world=(gardenCameraWorld*vec4(viewPosition,1.0)).xyz;
+     occlusion*=1.0-smoothstep(7.0,12.0,length(world.xz));
+     gl_FragColor=vec4(vec3(1.0-occlusion),1.0);`
+  );
+  composer.addPass(occlusion);
+  const output=new OutputPass();
+  // Sub-pixel dithering prevents visible bands in the smooth studio gradient.
+  const end=output.material.fragmentShader.lastIndexOf('}');
+  output.material.fragmentShader=output.material.fragmentShader.slice(0,end)+`
+    float grain=fract(52.9829189*fract(dot(gl_FragCoord.xy,vec2(.06711056,.00583715))));
+    gl_FragColor.rgb+=(grain-.5)/255.0;
+  }`;
+  composer.addPass(output);
+  function resize() {
+    composer.setSize(window.innerWidth,window.innerHeight);
+    // AO needs less resolution than the main image; limit its fill cost on retina displays.
+    occlusion.setSize(window.innerWidth,window.innerHeight);
+  }
+  resize();
+  return { renderer, scene, camera, controls, frame, composer, resize };
 }
