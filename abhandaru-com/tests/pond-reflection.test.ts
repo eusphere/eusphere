@@ -2,13 +2,12 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as THREE from 'three';
 import { createPondReflection } from '../src/pond-reflection.ts';
-import { waterMaterial } from '../src/materials.ts';
 
 function fixture() {
   const scene=new THREE.Scene();
   const camera=new THREE.PerspectiveCamera(36,1.5,.1,120);
   camera.position.set(3,5,9);camera.lookAt(0,0,0);camera.updateMatrixWorld();
-  const pond=new THREE.Mesh(new THREE.PlaneGeometry(4,3),waterMaterial());
+  const pond=new THREE.Mesh(new THREE.PlaneGeometry(4,3),new THREE.MeshBasicMaterial());
   pond.rotation.x=-Math.PI/2;pond.position.y=.145;
   const sprigs=new THREE.Object3D(), alreadyHidden=new THREE.Object3D();
   alreadyHidden.visible=false;

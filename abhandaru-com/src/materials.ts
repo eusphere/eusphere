@@ -1,25 +1,8 @@
 import * as THREE from "three";
 
-const noise = /* glsl */`
-float gardenHash(vec3 p) {
-  p = fract(p * .1031); p += dot(p, p.yzx + 33.33);
-  return fract((p.x + p.y) * p.z);
-}
-float gardenNoise(vec3 p) {
-  vec3 i = floor(p), f = fract(p); f = f*f*(3.0-2.0*f);
-  return mix(mix(mix(gardenHash(i), gardenHash(i+vec3(1,0,0)),f.x),
-                 mix(gardenHash(i+vec3(0,1,0)),gardenHash(i+vec3(1,1,0)),f.x),f.y),
-             mix(mix(gardenHash(i+vec3(0,0,1)),gardenHash(i+vec3(1,0,1)),f.x),
-                 mix(gardenHash(i+vec3(0,1,1)),gardenHash(i+vec3(1,1,1)),f.x),f.y),f.z);
-}
-// Screen-space surface gradient: the relief changes lighting, not just color.
-vec3 gardenBump(vec3 surface, vec3 n, float h) {
-  vec3 dx=dFdx(surface), dy=dFdy(surface);
-  vec3 r1=cross(dy,n), r2=cross(n,dx);
-  float det=dot(dx,r1);
-  return normalize(abs(det)*n-sign(det)*(dFdx(h)*r1+dFdy(h)*r2));
-}
-`;
+import noise from "./shaders/noise.glsl?raw";
+import lilyVeinSource from "./shaders/lily-veins.glsl?raw";
+import barkReliefSource from "./shaders/bark-relief.glsl?raw";
 
 export function mossMaterial(foliage = false) {
   const material = new THREE.MeshStandardMaterial({color:0xffffff, roughness:1, envMapIntensity:.06, side:foliage ? THREE.DoubleSide : THREE.FrontSide});
@@ -54,15 +37,7 @@ export function lilyMaterial() {
   material.onBeforeCompile = shader => {
     shader.vertexShader = "varying vec2 vLily;\n" + shader.vertexShader;
     shader.vertexShader = shader.vertexShader.replace("#include <begin_vertex>", "#include <begin_vertex>\nvLily = position.xz;");
-    shader.fragmentShader = "varying vec2 vLily;\n" + noise + /* glsl */`
-      float lilyVeins(vec2 p) {
-        float r=length(p), angle=atan(p.y,p.x);
-        float spokes=abs(sin(angle*11.0 + .18*sin(r*12.0)))*r;
-        float vein=1.0-smoothstep(.008,.021,spokes);
-        float branches=1.0-smoothstep(.018,.06,abs(sin(r*55.0+angle*14.0)));
-        return max(vein,branches*.28)*smoothstep(.025,.15,r);
-      }
-    ` + shader.fragmentShader;
+    shader.fragmentShader = "varying vec2 vLily;\n" + noise + lilyVeinSource + shader.fragmentShader;
     shader.fragmentShader = shader.fragmentShader.replace("#include <color_fragment>", `#include <color_fragment>
       float radius=length(vLily), veins=lilyVeins(vLily);
       float mottle=gardenNoise(vec3(vLily*18.0,2.0));
@@ -83,14 +58,7 @@ export function barkMaterial() {
   material.onBeforeCompile=shader=>{
     shader.vertexShader="varying vec2 vBark;\n"+shader.vertexShader;
     shader.vertexShader=shader.vertexShader.replace("#include <begin_vertex>","#include <begin_vertex>\nvBark=uv;");
-    shader.fragmentShader="varying vec2 vBark;\n"+noise+/* glsl */`
-      float barkRelief(vec2 p) {
-        float warp=gardenNoise(vec3(p.x*9.0,p.y*7.0,2.0));
-        float ridges=gardenNoise(vec3(p.x*8.0,p.y*95.0+warp*4.0,1.0));
-        float fine=gardenNoise(vec3(p.x*24.0,p.y*230.0+warp*8.0,3.0));
-        return ridges*.7+fine*.3;
-      }
-    `+shader.fragmentShader;
+    shader.fragmentShader="varying vec2 vBark;\n"+noise+barkReliefSource+shader.fragmentShader;
     shader.fragmentShader=shader.fragmentShader.replace("#include <color_fragment>",`#include <color_fragment>
       float relief=barkRelief(vBark);
       diffuseColor.rgb*=mix(.6,1.25,relief)*mix(.8,1.1,gardenNoise(vec3(vBark*24.0,0.0)));

@@ -89,8 +89,12 @@ lighting, and materials come before plant/water animation.
 - `src/garden.ts`: procedural terrain, rock shelf, root and branches, moss,
   pond, fourteen lily pads, bamboo, and ferns; includes instancing helpers.
 - `src/pond-reflection.ts`: cached mirrored-camera capture and water compositing.
-- `src/materials.ts`: procedural moss, bark, lily veins, rock/soil relief,
-  and water materials. Shader patches retain Three.js lighting and shadows.
+- `src/materials.ts`: procedural materials and the small TypeScript glue that
+  patches Three.js lighting shaders.
+- `src/shaders/`: standalone `.glsl` snippets for shared noise/normal relief,
+  bark grain, and lily-pad veins. Vite imports these with `?raw`, giving editors
+  GLSL syntax highlighting while bundling them as strings; Three's built-in
+  shader chunks are still composed at runtime.
 - `static/index.css` and `index.html`: full-window canvas and minimal controls.
 - `src/grass.ts`, `src/ground.ts`, and `src/constants.ts`: legacy grassland files;
   they remain in the repository but are not imported by the current entry point.
