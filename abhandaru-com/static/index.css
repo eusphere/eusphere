@@ -17,14 +17,76 @@ body {
 }
 
 .scene-controls {
-  position: fixed; bottom: max(24px, env(safe-area-inset-bottom)); left: 0; right: 0;
-  display: flex; align-items: center; justify-content: center; gap: 18px;
-  color: #3f4439; font: 12px/1.4 system-ui, sans-serif;
+  position: fixed;
+  bottom: max(24px, env(safe-area-inset-bottom));
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 9px 10px 9px 22px;
+  width: max-content;
+  max-width: calc(100vw - 32px);
+  box-sizing: border-box;
+  border: 1px solid rgb(255 255 255 / 50%);
+  border-radius: 999px;
+  background: linear-gradient(150deg, rgb(250 248 233 / 85%), rgb(233 233 217 / 78%));
+  -webkit-backdrop-filter: blur(22px) saturate(135%);
+  backdrop-filter: blur(22px) saturate(135%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 70%), inset 0 -1px 0 rgb(79 85 62 / 10%), 0 8px 28px rgb(28 37 22 / 16%);
+  color: #30392b;
+  font: 12px/1.4 system-ui, sans-serif;
 }
+.control-hint { white-space: nowrap; color: #4c5545; }
+.control-hint span { margin: 0 3px; opacity: .6; }
+.control-divider { width: 1px; height: 18px; background: rgb(68 79 56 / 18%); }
+.ambient-control { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+.ambient-control svg { opacity: .75; }
+.ambient-control input {
+  --level: 100%;
+  width: 88px;
+  height: 28px;
+  margin: 0 2px 0 4px;
+  background: transparent;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 999px;
+}
+.ambient-control input::-webkit-slider-runnable-track {
+  height: 3px; border-radius: 999px;
+  background: linear-gradient(to right, #687651 var(--level), rgb(63 77 46 / 18%) var(--level));
+}
+.ambient-control input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 13px; height: 13px; margin-top: -5px;
+  border-radius: 50%; border: 1px solid rgb(255 255 255 / 90%);
+  background: #f8f8ed;
+  box-shadow: 0 1px 4px rgb(35 46 24 / 30%);
+}
+.ambient-control input::-moz-range-track { height: 3px; border-radius: 999px; background: rgb(63 77 46 / 18%); }
+.ambient-control input::-moz-range-progress { height: 3px; border-radius: 999px; background: #687651; }
+.ambient-control input::-moz-range-thumb { width: 12px; height: 12px; border-radius: 50%; border: 1px solid white; background: #f8f8ed; box-shadow: 0 1px 4px rgb(35 46 24 / 30%); }
 .scene-controls button {
-  color: inherit; background: #f4f1e580; border: 1px solid #535e4533;
-  border-radius: 20px; padding: 8px 14px; cursor: pointer; font: inherit;
+  color: inherit;
+  background: rgb(255 255 255 / 32%);
+  border: 1px solid rgb(255 255 255 / 42%);
+  border-radius: 999px;
+  min-height: 34px;
+  padding: 6px 17px;
+  cursor: pointer;
+  font: inherit;
+  transition: background .18s ease;
 }
-.scene-controls button:hover { background: #f4f1e5c0; }
-.scene-controls button:focus-visible { outline: 2px solid #475e33; outline-offset: 3px; }
+.scene-controls button:hover { background: rgb(255 255 255 / 65%); }
+.scene-controls :focus-visible { outline: 2px solid #475e33; outline-offset: 4px; }
 #scene { touch-action: none; }
+@media (max-width: 600px) {
+  .control-hint, .control-hint + .control-divider { display: none; }
+  .scene-controls { padding-left: 17px; gap: 14px; }
+  .ambient-control input { width: 92px; height: 34px; }
+  .scene-controls button { min-height: 40px; }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .scene-controls { background: #eeeee0; backdrop-filter: none; -webkit-backdrop-filter: none; }
+}

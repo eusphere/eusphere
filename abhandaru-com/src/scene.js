@@ -42,7 +42,8 @@ export function createScene() {
     reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
   });
   const frame = motion.reset;
-  scene.add(new THREE.HemisphereLight(0xfff5dc, 0x394331, 0.3));
+  const ambient = new THREE.HemisphereLight(0xfff5dc, 0x394331, 0.3);
+  scene.add(ambient);
   const sun = new THREE.DirectionalLight(0xffe2b3, 3.1);
   sun.position.set(-6, 7, 1);
   sun.castShadow = true;
@@ -104,5 +105,11 @@ export function createScene() {
     occlusion.setSize(window.innerWidth,window.innerHeight);
   }
   resize();
-  return { renderer, scene, camera, controls, frame, composer, resize, updateCamera: motion.update };
+  function setAmbientLevel(level) {
+    const amount = THREE.MathUtils.clamp(level, 0, 1);
+    ambient.intensity = .3 * amount;
+    fill.intensity = .1 * amount;
+    scene.environmentIntensity = .17 * amount;
+  }
+  return { renderer, scene, camera, controls, frame, composer, resize, updateCamera: motion.update, setAmbientLevel };
 }

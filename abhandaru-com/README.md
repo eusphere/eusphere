@@ -15,7 +15,7 @@ yarn dev
 ```
 
 Open the URL Vite prints, usually `http://localhost:5173`. Drag to orbit,
-scroll/pinch to zoom, and use **Reset view** for a gentle 1.8-second return home.
+scroll/pinch to zoom, and use **Reset** for a gentle 1.8-second return home.
 Panning is disabled. A very slow default orbit takes about 16 minutes 40 seconds
 per turn; manual interaction interrupts a reset. Reduced-motion preferences
 disable auto-orbit and use an immediate reset. Initial framing accounts for portrait screens;
@@ -191,3 +191,12 @@ lower capture cost. The main camera/render loop is not capped to that rate.
 Automatic orbit means caching no longer eliminates reflection rendering while
 idle; static shadows, excluded fine moss sprigs, and skipped postprocessing still
 reduce each capture's cost. Actual frame-time and device testing are still needed.
+
+### Bottom controls
+
+The controls sit in a translucent, blurred glass pill with a compact mobile
+layout. The Ambient slider scales hemisphere light, fill light, and environment
+intensity from zero to their authored defaults; the directional sun stays fixed.
+Lighting changes invalidate the cached pond reflection. The slider defaults to
+100% on reload and supports native keyboard input. Reset changes the camera only,
+leaving the chosen ambient level in place.
