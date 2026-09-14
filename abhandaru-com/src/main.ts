@@ -1,6 +1,6 @@
-import { createGarden } from "./garden.js";
-import { createScene } from "./scene.js";
-import { createPondReflection } from "./pond-reflection.js";
+import { createGarden } from "./garden.ts";
+import { createScene } from "./scene.ts";
+import { createPondReflection } from "./pond-reflection.ts";
 
 const { renderer, scene, camera, controls, frame, composer, resize, updateCamera, setAmbientLevel } = createScene();
 const { pond, reflectionExcluded } = createGarden(scene);

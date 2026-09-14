@@ -21,7 +21,7 @@ export default defineConfig(({ command }) => ({
     alias:
       command === "serve"
         ? {
-            "/static/index.js": path.resolve(root, "src/main.js"),
+            "/static/index.js": path.resolve(root, "src/main.ts"),
           }
         : {},
   },
@@ -29,7 +29,7 @@ export default defineConfig(({ command }) => ({
     outDir: path.join(root, "static"),
     emptyOutDir: false,
     rollupOptions: {
-      input: path.resolve(root, "src/main.js"),
+      input: path.resolve(root, "src/main.ts"),
       output: {
         entryFileNames: "index.js",
         format: "es",

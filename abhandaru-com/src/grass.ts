@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { FIELD_RADIUS, GRASS_COLORS, GRASS_COUNT } from "./constants.js";
+import { FIELD_RADIUS, GRASS_COLORS, GRASS_COUNT } from "./constants.ts";
 
 export function createGrass(scene, camera) {
   const bladeGeometry = new THREE.PlaneGeometry(0.32, 2.2, 1, 4);

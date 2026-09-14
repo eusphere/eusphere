@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { createCameraMotion } from "./camera-motion.js";
+import { createCameraMotion } from "./camera-motion.ts";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";

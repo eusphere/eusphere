@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as THREE from 'three';
-import {createCameraMotion} from '../src/camera-motion.js';
+import {createCameraMotion} from '../src/camera-motion.ts';
 
 function fixture(options) {
   const camera=new THREE.PerspectiveCamera(36,1.5,.1,120);

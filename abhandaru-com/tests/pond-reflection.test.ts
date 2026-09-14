@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as THREE from 'three';
-import { createPondReflection } from '../src/pond-reflection.js';
-import { waterMaterial } from '../src/materials.js';
+import { createPondReflection } from '../src/pond-reflection.ts';
+import { waterMaterial } from '../src/materials.ts';
 
 function fixture() {
   const scene=new THREE.Scene();

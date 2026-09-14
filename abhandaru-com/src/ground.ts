@@ -3,7 +3,7 @@ import {
   BASE_DISC_COLORS,
   BASE_DISC_VARIATION,
   FIELD_RADIUS,
-} from "./constants.js";
+} from "./constants.ts";
 
 export function createGround(scene) {
   const groundMaterial = new THREE.ShaderMaterial({

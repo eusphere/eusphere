@@ -1,12 +1,14 @@
 # abhandaru.com
 
-A static, frontend-only Three.js scene, built with Vite and deployed to S3/CloudFront.
+A static, frontend-only Three.js TypeScript scene, built with Vite and deployed to S3/CloudFront.
 This is one tenant in the Eusphere monorepo; it has its own package and build.
 There is no application server, database, React runtime, or runtime asset service.
 
 ## Development
 
 Requires Node >=20; CI uses Node 22. Yarn and `yarn.lock` are the deployment path.
+All application and test sources use `.ts`; Vite transpiles the app, while Node's
+native type stripping runs the tests.
 
 ```bash
 cd abhandaru-com
@@ -28,7 +30,7 @@ yarn build
 yarn preview
 ```
 
-Vite bundles `src/main.js` into **`static/index.js`**, which is tracked in Git and
+Vite bundles `src/main.ts` into **`static/index.js`**, which is tracked in Git and
 referenced by `index.html`. Edit source files, then rebuild the bundle; do not
 hand-edit the generated JavaScript. The build preserves the other static assets.
 The preview command serves the built site on port 4173.
@@ -79,18 +81,18 @@ lighting, and materials come before plant/water animation.
 
 ## Source map
 
-- `src/main.js`: assembles the garden, updates controls, renders the composer,
+- `src/main.ts`: assembles the garden, updates controls, renders the composer,
   handles resizing, and wires the reset button.
-- `src/camera-motion.js`: time-based slow orbit and interruptible spherical reset.
-- `src/scene.js`: renderer, camera, OrbitControls, lighting, studio stage,
+- `src/camera-motion.ts`: time-based slow orbit and interruptible spherical reset.
+- `src/scene.ts`: renderer, camera, OrbitControls, lighting, studio stage,
   environment, shadows, ambient occlusion, and final color output.
-- `src/garden.js`: procedural terrain, rock shelf, root and branches, moss,
+- `src/garden.ts`: procedural terrain, rock shelf, root and branches, moss,
   pond, fourteen lily pads, bamboo, and ferns; includes instancing helpers.
-- `src/pond-reflection.js`: cached mirrored-camera capture and water compositing.
-- `src/materials.js`: procedural moss, bark, lily veins, rock/soil relief,
+- `src/pond-reflection.ts`: cached mirrored-camera capture and water compositing.
+- `src/materials.ts`: procedural moss, bark, lily veins, rock/soil relief,
   and water materials. Shader patches retain Three.js lighting and shadows.
 - `static/index.css` and `index.html`: full-window canvas and minimal controls.
-- `src/grass.js`, `src/ground.js`, and `src/constants.js`: legacy grassland files;
+- `src/grass.ts`, `src/ground.ts`, and `src/constants.ts`: legacy grassland files;
   they remain in the repository but are not imported by the current entry point.
 
 ## Geometry and materials
@@ -156,7 +158,7 @@ captures, the texture and its captured projection matrix stay paired. The normal
 objects or lights requires calling `invalidate()` on the returned reflection
 controller. The rest of the scene still renders continuously.
 
-Run `node --test tests/*.test.js` for reflection cache invalidation, rate limiting,
+Run `npm test` (or `node --test tests/*.test.ts`) for reflection cache invalidation, rate limiting,
 pass exclusion, failure recovery, and camera reset/interruption tests. These use a renderer stub to validate the
 capture lifecycle; they do not measure GPU performance. Browser checks cover
 shader compilation and reflection behavior while orbiting. Real-device/mobile

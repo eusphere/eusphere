@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { mossMaterial, lilyMaterial, barkMaterial, earthMaterial, waterMaterial } from "./materials.js";
+import { mossMaterial, lilyMaterial, barkMaterial, earthMaterial, waterMaterial } from "./materials.ts";
 
 // Seeded placement makes the composition repeatable across reloads.
 let seed = 2718;
