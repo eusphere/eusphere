@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { createCameraMotion } from "./camera-motion.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
@@ -37,13 +38,10 @@ export function createScene() {
   controls.maxDistance = 25;
   controls.minPolarAngle = Math.PI / 6;
   controls.maxPolarAngle = Math.PI / 2.25;
-  function frame() {
-    const distance = 15 / Math.min(1, camera.aspect);
-    controls.maxDistance = Math.max(25, distance * 1.5);
-    camera.position.set(distance * 0.44, distance * 0.55, distance * 0.79);
-    controls.update();
-  }
-  frame();
+  const motion = createCameraMotion(camera, controls, {
+    reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+  });
+  const frame = motion.reset;
   scene.add(new THREE.HemisphereLight(0xfff5dc, 0x394331, 0.3));
   const sun = new THREE.DirectionalLight(0xffe2b3, 3.1);
   sun.position.set(-6, 7, 1);
@@ -106,5 +104,5 @@ export function createScene() {
     occlusion.setSize(window.innerWidth,window.innerHeight);
   }
   resize();
-  return { renderer, scene, camera, controls, frame, composer, resize };
+  return { renderer, scene, camera, controls, frame, composer, resize, updateCamera: motion.update };
 }

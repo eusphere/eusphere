@@ -15,8 +15,10 @@ yarn dev
 ```
 
 Open the URL Vite prints, usually `http://localhost:5173`. Drag to orbit,
-scroll/pinch to zoom, and use **Reset view** to restore the framing. Panning and
-automatic rotation are disabled. Initial framing accounts for portrait screens;
+scroll/pinch to zoom, and use **Reset view** for a gentle 1.8-second return home.
+Panning is disabled. A very slow default orbit takes about 16 minutes 40 seconds
+per turn; manual interaction interrupts a reset. Reduced-motion preferences
+disable auto-orbit and use an immediate reset. Initial framing accounts for portrait screens;
 resizing updates the projection, but does not automatically reset the user's view.
 
 ## Build and deployment
@@ -79,10 +81,12 @@ lighting, and materials come before plant/water animation.
 
 - `src/main.js`: assembles the garden, updates controls, renders the composer,
   handles resizing, and wires the reset button.
+- `src/camera-motion.js`: time-based slow orbit and interruptible spherical reset.
 - `src/scene.js`: renderer, camera, OrbitControls, lighting, studio stage,
   environment, shadows, ambient occlusion, and final color output.
 - `src/garden.js`: procedural terrain, rock shelf, root and branches, moss,
   pond, fourteen lily pads, bamboo, and ferns; includes instancing helpers.
+- `src/pond-reflection.js`: cached mirrored-camera capture and water compositing.
 - `src/materials.js`: procedural moss, bark, lily veins, rock/soil relief,
   and water materials. Shader patches retain Three.js lighting and shadows.
 - `static/index.css` and `index.html`: full-window canvas and minimal controls.
@@ -110,8 +114,8 @@ simulation. There are no downloaded textures or models.
 Water is one opaque physical-material surface with static ripple normals and a
 shoreline-to-center color gradient. The shallows and depth are visual cues; there
 is no actual water volume, refraction, underwater scene, or fluid simulation.
-Lighting comes partly from a generated `RoomEnvironment`; its highlights do
-**not** reflect the garden objects themselves.
+Lighting comes partly from a generated `RoomEnvironment`. The pond additionally
+reflects the actual garden through the planar reflection described below.
 
 ## Rendering decisions and pitfalls
 
@@ -135,11 +139,28 @@ Lighting comes partly from a generated `RoomEnvironment`; its highlights do
 
 ## Deferred work and validation
 
-True garden reflections in the pond are explicitly deferred to a separate future
-change. The proposed starting point is a 512×512 mirrored-camera render, updated
-when the camera moves, with tiny moss sprigs omitted and no repeated SSAO pass.
-This is a proposal, not an implemented feature or measured performance promise.
-Reflection cost and mobile performance still need to be measured.
+The pond now uses a 1024×1024 half-float reflection target, driven by Three.js's
+`Reflector` mirrored camera and oblique clipping plane. The helper is not added
+as another visible surface: its texture is blended into the physical water in
+linear color, with a softened sample, subtle static distortion, and stronger
+reflection at grazing angles. Generic environment highlights are restrained so
+they do not overpower the reflected garden.
+
+Captures occur in the main color pass, after full-scene shadow maps exist. They
+reuse those shadows, omit fine moss sprigs (but retain moss cushions), and skip
+SSAO and output processing. The pond is hidden during capture to avoid recursion.
+Camera-driven updates are capped at 20 Hz; projection, pond-transform, and
+explicit invalidations refresh immediately. Unchanged views reuse the image.
+Auto-orbit keeps the cache refreshing, unlike a stationary camera. Between
+captures, the texture and its captured projection matrix stay paired. The normal/depth override pass does not trigger captures. Moving other
+objects or lights requires calling `invalidate()` on the returned reflection
+controller. The rest of the scene still renders continuously.
+
+Run `node --test tests/*.test.js` for reflection cache invalidation, rate limiting,
+pass exclusion, failure recovery, and camera reset/interruption tests. These use a renderer stub to validate the
+capture lifecycle; they do not measure GPU performance. Browser checks cover
+shader compilation and reflection behavior while orbiting. Real-device/mobile
+performance and an adaptive reflection resolution policy remain unmeasured.
 
 Other deferred work includes less uniform bamboo heights, animation, and a small
 technology accent. Preserve the approved tree material while iterating elsewhere.
@@ -149,8 +170,24 @@ browser shader errors, close-up materials, orbit/reset controls, low-angle stage
 views, and portrait framing. There is no automated visual regression suite or
 real-device performance baseline. A narrow desktop viewport is not a mobile GPU
 test. Vite reports a bundle-size warning above 500 kB uncompressed; the current
-bundle is approximately 146 kB gzipped, including Three.js and postprocessing.
+bundle is approximately 149 kB gzipped, including Three.js and postprocessing.
 
 For scene changes, build and inspect both the default composition and close-up/
 low-angle views. Check browser shader logs: GLSL compilation failures may only
 appear at runtime. Documentation-only changes do not require a scene rebuild.
+
+### Reflection resolution tradeoffs
+
+1024×1024 has four times the pixels of 512×512. Its RGBA half-float color target
+uses 8 MiB rather than 2 MiB, plus a depth buffer and driver overhead. Geometry
+and draw-call counts per capture are unchanged; fragment shading and bandwidth
+increase, so total capture time does not necessarily scale by exactly four.
+2048×2048 would quadruple the pixels again (32 MiB for color alone), with smaller
+visual returns on this pond and more mobile GPU pressure. Resolution and maximum
+capture frequency are options on `createPondReflection`.
+
+The 20 Hz limit trades slightly less current reflections during quick drags for
+lower capture cost. The main camera/render loop is not capped to that rate.
+Automatic orbit means caching no longer eliminates reflection rendering while
+idle; static shadows, excluded fine moss sprigs, and skipped postprocessing still
+reduce each capture's cost. Actual frame-time and device testing are still needed.

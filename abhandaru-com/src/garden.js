@@ -138,7 +138,7 @@ export function createGarden(scene) {
   }
   addUpperBranches(scene, bark, curve);
   instances(scene,cushionGeometry,moss,cushions);
-  instances(scene,mossTuftGeometry(),mossMaterial(true),tufts);
+  const mossSprigs = instances(scene,mossTuftGeometry(),mossMaterial(true),tufts);
 
   // A single calm surface; Fresnel and tiny static ripples, no simulation.
   const pondShape = new THREE.Shape();
@@ -155,6 +155,7 @@ export function createGarden(scene) {
   });
   addBamboo(scene);
   addFerns(scene);
+  return { pond, reflectionExcluded: [mossSprigs] };
 }
 
 function addBamboo(scene) {
