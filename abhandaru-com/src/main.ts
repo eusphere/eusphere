@@ -4,6 +4,7 @@ import { createPondReflection } from "./pond-reflection.ts";
 
 const { renderer, scene, camera, controls, frame, composer, resize, updateCamera, setAmbientLevel } = createScene();
 const { pond, reflectionExcluded } = createGarden(scene);
+const rippleState = pond.material.userData.ripple as { time: number; uniform?: { value: number } };
 const reflection = createPondReflection(pond, scene, camera, reflectionExcluded);
 let ambientLevel = 1;
 let ambientReset: { elapsed: number; duration: number; from: number } | null = null;
@@ -34,6 +35,8 @@ renderer.setAnimationLoop(time => {
   const delta = previousTime === undefined ? 0 : Math.min((time - previousTime) / 1000, .1);
   previousTime = time;
   updateCamera(delta);
+  rippleState.time += delta;
+  if (rippleState.uniform) rippleState.uniform.value = rippleState.time;
   if (ambientReset) {
     ambientReset.elapsed += delta;
     const progress = Math.min(ambientReset.elapsed / ambientReset.duration, 1);

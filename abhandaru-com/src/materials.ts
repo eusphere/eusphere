@@ -110,10 +110,14 @@ export function earthMaterial(kind) {
 
 export function waterMaterial() {
   const material=new THREE.MeshPhysicalMaterial({color:0x294f40,metalness:0,roughness:.16,ior:1.333,clearcoat:1,clearcoatRoughness:.12,envMapIntensity:3});
+  const rippleState = { time: 0 };
+  material.userData.ripple = rippleState;
   material.onBeforeCompile=shader=>{
+    shader.uniforms.uRippleTime={value:rippleState.time};
+    rippleState.uniform = shader.uniforms.uRippleTime;
     shader.vertexShader='varying vec3 vWater;\n'+shader.vertexShader;
     shader.vertexShader=shader.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\nvWater=(modelMatrix*vec4(position,1.0)).xyz;');
-    shader.fragmentShader='varying vec3 vWater;\n'+noise+shader.fragmentShader;
+    shader.fragmentShader='uniform float uRippleTime;\nvarying vec3 vWater;\n'+noise+shader.fragmentShader;
     shader.fragmentShader=shader.fragmentShader.replace('#include <color_fragment>',`#include <color_fragment>
       vec2 basin=(vWater.xz-vec2(.55,.55))/vec2(2.22,1.53);
       float angle=atan(basin.y,basin.x);
@@ -125,6 +129,32 @@ export function waterMaterial() {
     shader.fragmentShader=shader.fragmentShader.replace('#include <normal_fragment_maps>',`#include <normal_fragment_maps>
       float ripple=.006*gardenNoise(vec3(vWater.x*9.0,0.0,vWater.z*16.0))
                    +.002*gardenNoise(vec3(vWater.x*32.0,3.0,vWater.z*25.0));
+      vec2 ripplePoint=(vWater.xz-vec2(.55,.55))/vec2(2.22,1.53);
+      float firstAge=mod(uRippleTime,5.0);
+      float secondAge=mod(uRippleTime+2.35,8.0);
+      float firstEvent=floor(uRippleTime/5.0);
+      float secondEvent=floor((uRippleTime+2.35)/8.0);
+      vec2 firstOrigin=vec2(cos(gardenHash(vec3(firstEvent,11.0,2.0))*6.2831),
+        sin(gardenHash(vec3(firstEvent,17.0,3.0))*6.2831))
+        * (.12 + gardenHash(vec3(firstEvent,23.0,4.0))*.47);
+      vec2 secondOrigin=vec2(cos(gardenHash(vec3(secondEvent,31.0,5.0))*6.2831),
+        sin(gardenHash(vec3(secondEvent,37.0,6.0))*6.2831))
+        * (.12 + gardenHash(vec3(secondEvent,43.0,7.0))*.47);
+      float distanceFromFirst=length(ripplePoint-firstOrigin);
+      float distanceFromSecond=length(ripplePoint-secondOrigin);
+      float firstTrain=0.0;
+      float secondTrain=0.0;
+      for (int wave=0; wave<3; wave++) {
+        float offset=float(wave)*.105;
+        firstTrain += exp(-pow((distanceFromFirst-firstAge*.22+offset)/.021,2.0));
+        secondTrain += exp(-pow((distanceFromSecond-secondAge*.18+offset)/.025,2.0));
+      }
+      float firstEnvelope=smoothstep(3.8,.12,firstAge);
+      float secondEnvelope=smoothstep(5.2,.16,secondAge);
+      float firstAmplitude=.014 + .006*sin(floor(uRippleTime/5.0)*2.17);
+      float secondAmplitude=.010 + .007*sin(floor((uRippleTime+2.35)/8.0)*1.63+1.4);
+      ripple += firstTrain*firstEnvelope*firstAmplitude
+             + secondTrain*secondEnvelope*secondAmplitude;
       normal=gardenBump(-vViewPosition,normal,ripple);
     `);
     shader.fragmentShader=shader.fragmentShader.replace('#include <clearcoat_normal_fragment_maps>','#include <clearcoat_normal_fragment_maps>\nclearcoatNormal=normal;');

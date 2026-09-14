@@ -117,9 +117,15 @@ perturbation for surface relief, and darker, less rough damp regions. These are
 procedural appearance cues, not displaced high-resolution surfaces or a moisture
 simulation. There are no downloaded textures or models.
 
-Water is one opaque physical-material surface with static ripple normals and a
-shoreline-to-center color gradient. The shallows and depth are visual cues; there
-is no actual water volume, refraction, underwater scene, or fluid simulation.
+Water is one opaque physical-material surface with layered static ripple normals,
+two staggered expanding attenuating event clocks, and a shoreline-to-center
+color gradient. Each event chooses a new pseudo-random point in the pond and
+emits a three-wave train; event amplitudes vary slightly over time. The
+animation is a single `uRippleTime` uniform plus a few fragment-shader
+operations; it adds no geometry, simulation, or render pass.
+The shallows and depth are visual cues; there is no actual water volume,
+refraction, underwater scene, or fluid simulation. Its phase is independent of
+the reflection cache, so water can move without forcing a new garden capture.
 Lighting comes partly from a generated `RoomEnvironment`. The pond additionally
 reflects the actual garden through the planar reflection described below.
 
