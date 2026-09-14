@@ -37,8 +37,6 @@ body {
   color: #30392b;
   font: 12px/1.4 system-ui, sans-serif;
 }
-.control-hint { white-space: nowrap; color: #4c5545; }
-.control-hint span { margin: 0 3px; opacity: .6; }
 .control-divider { width: 1px; height: 18px; background: rgb(68 79 56 / 18%); }
 .ambient-control { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
 .ambient-control svg { opacity: .75; }
@@ -82,7 +80,6 @@ body {
 .scene-controls :focus-visible { outline: 2px solid #475e33; outline-offset: 4px; }
 #scene { touch-action: none; }
 @media (max-width: 600px) {
-  .control-hint, .control-hint + .control-divider { display: none; }
   .scene-controls { padding-left: 17px; gap: 14px; }
   .ambient-control input { width: 92px; height: 34px; }
   .scene-controls button { min-height: 40px; }

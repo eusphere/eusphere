@@ -11,8 +11,16 @@ window.addEventListener("resize", () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
   resize();
 });
-document.getElementById("reset-view").addEventListener("click", frame);
 const ambientSlider = document.getElementById("ambient-light");
+function restoreDefaults() {
+  frame();
+  ambientSlider.value = "100";
+  ambientSlider.style.setProperty("--level", "100%");
+  ambientSlider.setAttribute("aria-valuetext", "100 percent");
+  setAmbientLevel(1);
+  reflection.invalidate();
+}
+document.getElementById("reset-view").addEventListener("click", restoreDefaults);
 ambientSlider.addEventListener("input", () => {
   const value = Number(ambientSlider.value);
   setAmbientLevel(value / 100);
