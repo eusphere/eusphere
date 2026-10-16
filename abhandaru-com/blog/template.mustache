@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{TITLE}}</title>
     <meta name="description" content="{{DESCRIPTION}}">
+{{#IMAGE}}
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="{{TITLE}}">
+    <meta property="og:description" content="{{DESCRIPTION}}">
+    <meta property="og:image" content="{{IMAGE_URL}}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="{{IMAGE_URL}}">
+{{/IMAGE}}
     <link rel="stylesheet" href="/static/pages/post.css">
   </head>
   <body>

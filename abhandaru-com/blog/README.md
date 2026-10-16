@@ -5,7 +5,7 @@ This directory contains the source and build tooling for static posts on `abhand
 ## Structure
 
 - `*.md` — Markdown source for a post, with a small YAML-like front matter block.
-- `template.html` — shared HTML shell for generated posts.
+- `template.mustache` — shared HTML shell for generated posts.
 - `build.py` — renders the current post with Mistune into `static/pages`.
 - `requirements.txt` — Python dependencies for the blog generator.
 - `../static/pages/post.css` — shared post stylesheet.
