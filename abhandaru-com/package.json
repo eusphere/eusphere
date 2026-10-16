@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "./release/build.sh",
     "preview": "sirv-cli . --dev --port 4173",
     "test": "node --experimental-strip-types --test tests/*.test.ts"
   },

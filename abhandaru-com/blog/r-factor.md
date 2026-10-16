@@ -1,0 +1,62 @@
+---
+title: R-factor
+author: Adu Bhandaru
+date: Apr 30, 2026
+description: A model for thinking about the strength of an engineering organization.
+---
+
+## Definition
+
+A culture of high performance requires a consistent, shared understanding of what high performance means. In the context of engineering, this means **encapsulating an exceptional ability to solve problems for the business with technology**.
+
+The output of a high performance engineering organization is a *machine*. The rate at which this machine gets better (faster, cheaper, more capable, etc.) is how you measure the strength of an engineering team. To improve the machine requires intense problem solving.
+
+**A team that makes a machine 1% better each day is an elite team.** Many make the mistake of measuring the output of an engineering team by what the machine produces on a given day. That is not a result of engineering. The rate of improvement is.
+
+## Applied abstraction
+
+![A bell curve showing the distribution of R, the rate of improvement.](/static/pages/r-factor-bell-curve.svg)
+
+*AI shifts this curve to the right and flattens*
+
+Let us refer to the rate of improvement as `R`. Without being too scientific, we posit that `R` lies on some bell-curve centered at zero. It can be positive, negative, or zero.
+
+- **`R < 0` – The machine is slowing down.** It may be riddled with accruing tech debt, people may be leaving the team, each day the cost to run things increases, and so on.
+- **`R = 0` – The machine is maintaining speed.** Daily engineering efforts are counteracted by daily frictions, monotonous tasks, low or no opportunity for automation. This is KTLO in a nutshell.
+- **`R > 0` – The machine is speeding up.** Engineering is happening. Automation is proliferating, improvements to the system have longevity, we are building momentum.
+
+A high performance culture is one that:
+
+- Sets ambitious targets for `R` and strongly combats mean reversion.
+- Promotes those who make sustained contributions to `R`.
+
+## Contributing
+
+How you move `R` to the right will look different based on your role and seniority. This is actually how things *end up looking*; there is **no hard bounding function that stops you** from contributing in the same way senior peers do, for example.
+
+| Leveling | Contribution strategies |
+| --- | --- |
+| Managers | Improve your engineers, hire better engineers<br><br>Improve prioritization, context distribution, and delegation |
+| Senior managers | Improve your managers & all the above |
+| L3 & L4 | Write features that never break, low maintenance cost, see execution<br><br>Improve tools, workflows, escalate tech debt, etc. |
+| L5 & L6 | Strengthen your juniors, see IC leadership thoughts<br><br>Write subsystems that are robust, cheap, observable, and valuable |
+| L7+ | Create more L5+ engineers<br><br>Write systems that produce resilient and predictable subsystems |
+
+### Additional notes
+
+- This is not exhaustive. Many of you will find more creative ways to contribute to `R`!
+- The `R` a team generates will naturally fluctuate. Breaks must be taken, life happens.
+- Example sub-systems: user login, legal documents, rewards, manufactured spend.
+- Example super-systems: GraphQL, React Native, Kubernetes, on-call – technical & ops fabric.
+
+## Finding time, energy
+
+A common issue that engineers face is not having time to invest in `R`. The alternative is dire—the same problems persist day-to-day, the monotony and lack of “progress” facilitates burnout. There are only a few ways out and limited time to get the fly-wheel moving.
+
+Some thoughts:
+
+- **An aspiring high-performance team has a short window to achieve `R > 0`.** Think of this as reaching escape velocity. You only have so much fuel—this is the pain your team (together and individually) will tolerate as you pay down debts and work long hours.
+- **Contributing to `R` need not require “extra work”.** This is a common misconception. Doing the right work (prioritization) is critical and needs to happen at all levels of the organization. If low `R` work is competing with high `R` work, make your case to leadership. You can see many things they cannot.
+- **Investments have the most impact when you make them early.** Pushing hard at the beginning builds inertia and will make you much happier longer term. This is true for a given project or job, and even over the course of your career.
+- **If you are doing exactly the work given to you, *someone else* is the engineer.** Your job is to first audit the work you receive for upside and reconcile that with your own world model for where business opportunities are. If you are diligent here, you will find opportunities for optimization—if you get the organization to pursue those instead, you have done engineering.
+

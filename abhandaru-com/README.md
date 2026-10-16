@@ -16,6 +16,11 @@ yarn install --frozen-lockfile
 yarn dev
 ```
 
+`release/build.sh` installs JavaScript dependencies only when Vite is missing,
+then rebuilds the Python blog generator. Both local and production pipelines use
+this shared build path.
+The local R-factor post is available at `http://localhost:5173/pages/r-factor.html`.
+
 Open the URL Vite prints, usually `http://localhost:5173`. Drag to orbit,
 scroll/pinch to zoom, and use **Reset** for a gentle 1.8-second return home.
 Panning is disabled. A very slow default orbit takes about 16 minutes 40 seconds
@@ -26,7 +31,7 @@ resizing updates the projection, but does not automatically reset the user's vie
 ## Build and deployment
 
 ```bash
-yarn build
+./release/build.sh
 yarn preview
 ```
 

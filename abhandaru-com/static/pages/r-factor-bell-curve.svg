@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" role="img" aria-labelledby="title desc">
+  <title id="title">The rate of improvement, R, on a bell curve</title>
+  <desc id="desc">A bell curve centered at R equals zero, with negative values slowing the machine and positive values speeding it up.</desc>
+  <rect width="720" height="360" fill="#e9e8d9"/>
+  <path d="M70 275H665M360 55V290" stroke="#687651" stroke-width="2"/>
+  <path d="M78 275 C165 275 174 253 220 205 C258 165 295 83 360 83 C425 83 462 165 500 205 C546 253 555 275 657 275" fill="none" stroke="#3d7750" stroke-width="5" stroke-linecap="round"/>
+  <path d="M360 83V275" stroke="#3d7750" stroke-width="2" stroke-dasharray="6 7"/>
+  <text x="55" y="315" fill="#2d3028" font-family="Georgia, serif" font-size="24">R &lt; 0</text>
+  <text x="338" y="315" fill="#2d3028" font-family="Georgia, serif" font-size="24">R = 0</text>
+  <text x="570" y="315" fill="#2d3028" font-family="Georgia, serif" font-size="24">R &gt; 0</text>
+  <text x="126" y="70" fill="#687651" font-family="Georgia, serif" font-size="21">slowing down</text>
+  <text x="520" y="70" fill="#687651" font-family="Georgia, serif" font-size="21">speeding up</text>
+</svg>

@@ -1,5 +1,6 @@
 #!/bin/bash
 set -euo pipefail
 
-yarn install --frozen-lockfile
+./release/build.sh
+
 yarn dev

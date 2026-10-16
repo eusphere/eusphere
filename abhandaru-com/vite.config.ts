@@ -14,6 +14,10 @@ export default defineConfig(({ command }) => ({
           "/static",
           sirv(path.join(root, "static"), { dev: true, single: false })
         );
+        server.middlewares.use(
+          "/pages",
+          sirv(path.join(root, "static/pages"), { dev: true, single: false })
+        );
       },
     },
   ],
