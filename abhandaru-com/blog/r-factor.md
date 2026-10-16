@@ -7,9 +7,9 @@ description: A model for thinking about the strength of an engineering organizat
 
 ## Definition
 
-A culture of high performance requires a consistent, shared understanding of what high performance means. In the context of engineering, this means **encapsulating an exceptional ability to solve problems for the business with technology**.
+Typically, the purpose of an engineering organization is to **solve problems for the business with technology**. But the output of that organization is actually a *machine*.
 
-The output of a high performance engineering organization is a *machine*. The rate at which this machine gets better (faster, cheaper, more capable, etc.) is how you measure the strength of an engineering team. To improve the machine requires intense problem solving.
+Let us call `R` the rate at which this machine gets better (faster, cheaper, more capable, etc.). To improve the machine requires consistent, intense problem solving. The ability to maintain a high rate of improvement directly correlates with the strength of your engineering.
 
 **A team that makes a machine 1% better each day is an elite team.** Many make the mistake of measuring the output of an engineering team by what the machine produces on a given day. That is not a result of engineering. The rate of improvement is.
 

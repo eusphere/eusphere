@@ -18,6 +18,10 @@ static/pages/r-factor.html
         -> s3://eusphere/abhandaru-com/post/r-factor
 ```
 
+Keep generated post HTML, stylesheets, and post-specific assets in `static/pages`.
+Remove obsolete asset directories and other generated leftovers when moving or
+renaming a post; the build should not leave parallel copies behind.
+
 To build locally:
 
 ```bash
