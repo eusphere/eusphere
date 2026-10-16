@@ -16,7 +16,14 @@ article li { padding-left: .35rem; margin: .6rem 0; }
 article figure { margin: 2.5rem auto 2rem; width: min(100%, 500px); }
 article figure img { display: block; width: 100%; height: auto; }
 article figcaption { margin-top: 1rem; text-align: center; color: #687651; font-size: .95rem; font-style: italic; }
-article code { color: #3d7750; font: .92em/1.2 ui-monospace, SFMono-Regular, Menlo, monospace; }
+article code {
+  color: #3d7750;
+  background: #dfdecf;
+  border: 1px solid #c8c8b7;
+  border-radius: 4px;
+  padding: .08em .48em;
+  font: .92em/1.2 "IBM Plex Mono", "SFMono-Regular", Menlo, monospace;
+}
 article table { width: 100%; margin: 2rem 0; border-collapse: collapse; font-size: .96em; line-height: 1.5; }
 article th, article td { padding: .75rem .7rem; text-align: left; vertical-align: top; border-bottom: 1px solid rgb(45 48 40 / 18%); }
 article th { font-weight: 600; border-bottom-color: #687651; }

@@ -5,13 +5,13 @@ date: Apr 30, 2026
 description: A model for thinking about the strength of an engineering organization.
 ---
 
-## Definition
+# Definition
 
-Typically, the purpose of an engineering organization is to **solve problems for the business with technology**. But the output of that organization is actually a *machine*.
+Typically, the purpose of an engineering organization is to **solve problems for the business with technology**. However, the output of that organization is actually a *machine*.
 
 Let us call `R` the rate at which this machine gets better (faster, cheaper, more capable, etc.). To improve the machine requires consistent, intense problem solving. The ability to maintain a high rate of improvement directly correlates with the strength of your engineering.
 
-**A team that makes a machine 1% better each day is an elite team.** Many make the mistake of measuring the output of an engineering team by what the machine produces on a given day. That is not a result of engineering. The rate of improvement is.
+**A team that makes a machine 1% better each day is an elite team.** Many make the mistake of measuring the output of an engineering team by what the machine produces on a given day. That is the *current value* of the machine, but alone not indicative that engineering is weak or strong.
 
 ## Applied abstraction
 
@@ -31,9 +31,9 @@ A high performance culture is one that:
 - Sets ambitious targets for `R` and strongly combats mean reversion.
 - Promotes those who make sustained contributions to `R`.
 
-## Contributing
+## Contribution
 
-How you move `R` to the right will look different based on your role and seniority. This is actually how things *end up looking*; there is **no hard bounding function that stops you** from contributing in the same way senior peers do, for example.
+How you move `R` to the right will look different based on your role and seniority. This is actually how things * usually* end up looking; there is **no hard boundary that stops you** from contributing in the same way senior peers do, for example.
 
 <table>
   <thead>
@@ -70,7 +70,7 @@ How you move `R` to the right will look different based on your role and seniori
 - Example sub-systems: user login, OLAP replication, fraud detection
 - Example super-systems: API standardization, React Native, Kubernetes, on-call–the operating ecosystem.
 
-## Finding time, energy
+## Prioritization
 
 A common issue that engineers face is not having time to invest in `R`. The alternative is dire—the same problems persist day-to-day and the monotony and lack of “progress” *will* burn out the team. There are only a few ways out and limited time to get the fly-wheel moving.
 
@@ -80,3 +80,11 @@ Some thoughts:
 - **Contributing to `R` need not require “extra work”.** This is a common misconception. Doing the right work (prioritization) is critical and needs to happen at all levels of the organization. If low `R` work is competing with high `R` work, make your case to leadership. You can see many things they cannot.
 - **Investments have the most impact when you make them early.** Pushing hard at the beginning builds inertia and will make you much happier longer term. This is true for a given project or job, and even over the course of your career.
 - **If you are doing exactly the work given to you, *someone else* is the engineer.** Your job is to first audit the work you receive for upside and reconcile that with your own world model for where business opportunities are. If you are diligent here, you will find opportunities for optimization—if you get the organization to pursue those instead, you have done engineering.
+
+## Generality
+
+Firstly, this framework may be useful outside of software engineering. For example, you can apply many of the same principles when building a customer experience team. Reward members on the team who increase the number of tickets an agent can handle (canned response libraries, knowledge bases, etc.). That is *engineering*.
+
+Second, AI related advancements do not contradict this framework. Instead, LLMs dramatically flatten the `R` bellcurve and moves it to the right. Improving the machine has never been easier for software engineers and this gives way to new pitfalls: When everything is cheap it is easy to lose discipline when allocating your attention to bottlenecks. **Prioritize rigorously**.
+
+Finally, this is **just a framework** and not some law of physics. I have found it useful in evaluating peers, qualifying gaps in or extraordinary performance, and discussing promotion. Hopefully it is useful to you.
