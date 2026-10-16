@@ -19,4 +19,6 @@ article code { color: #3d7750; font: .92em/1.2 ui-monospace, SFMono-Regular, Men
 article table { width: 100%; margin: 2rem 0; border-collapse: collapse; font-size: .96em; line-height: 1.5; }
 article th, article td { padding: .75rem .7rem; text-align: left; vertical-align: top; border-bottom: 1px solid rgb(45 48 40 / 18%); }
 article th { font-weight: 600; border-bottom-color: #687651; }
+article td ul { margin: 0; padding-left: 1.2rem; }
+article td li { margin: .35rem 0; padding-left: .15rem; }
 @media (max-width: 600px) { .post { padding-top: 4rem; } .post-header { margin-bottom: 3rem; } article { font-size: 1.06rem; } article table { font-size: .9em; } }

@@ -34,13 +34,33 @@ A high performance culture is one that:
 
 How you move `R` to the right will look different based on your role and seniority. This is actually how things *end up looking*; there is **no hard bounding function that stops you** from contributing in the same way senior peers do, for example.
 
-| Leveling | Contribution strategies |
-| --- | --- |
-| Managers | Improve your engineers, hire better engineers<br><br>Improve prioritization, context distribution, and delegation |
-| Senior managers | Improve your managers & all the above |
-| L3 & L4 | Write features that never break, low maintenance cost, see execution<br><br>Improve tools, workflows, escalate tech debt, etc. |
-| L5 & L6 | Strengthen your juniors, see IC leadership thoughts<br><br>Write subsystems that are robust, cheap, observable, and valuable |
-| L7+ | Create more L5+ engineers<br><br>Write systems that produce resilient and predictable subsystems |
+<table>
+  <thead>
+    <tr><th>Leveling</th><th>Contribution strategies</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Managers</td>
+      <td><ul><li>Improve your engineers, hire better engineers</li><li>Improve prioritization, context distribution, and delegation</li></ul></td>
+    </tr>
+    <tr>
+      <td>Senior managers</td>
+      <td><ul><li>Improve your managers &amp; all the above</li></ul></td>
+    </tr>
+    <tr>
+      <td>L3 &amp; L4</td>
+      <td><ul><li>Write features that never break, low maintenance cost</li><li>Improve tools, workflows, escalate tech debt, etc.</li></ul></td>
+    </tr>
+    <tr>
+      <td>L5 &amp; L6</td>
+      <td><ul><li>Strengthen your juniors</li><li>Write subsystems that are robust, cheap, observable, and valuable</li></ul></td>
+    </tr>
+    <tr>
+      <td>L7+</td>
+      <td><ul><li>Create more L5+ engineers</li><li>Write systems that produce resilient and predictable subsystems</li></ul></td>
+    </tr>
+  </tbody>
+</table>
 
 ### Additional notes
 
@@ -59,4 +79,3 @@ Some thoughts:
 - **Contributing to `R` need not require “extra work”.** This is a common misconception. Doing the right work (prioritization) is critical and needs to happen at all levels of the organization. If low `R` work is competing with high `R` work, make your case to leadership. You can see many things they cannot.
 - **Investments have the most impact when you make them early.** Pushing hard at the beginning builds inertia and will make you much happier longer term. This is true for a given project or job, and even over the course of your career.
 - **If you are doing exactly the work given to you, *someone else* is the engineer.** Your job is to first audit the work you receive for upside and reconcile that with your own world model for where business opportunities are. If you are diligent here, you will find opportunities for optimization—if you get the organization to pursue those instead, you have done engineering.
-
