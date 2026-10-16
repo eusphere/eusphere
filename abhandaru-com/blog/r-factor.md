@@ -15,9 +15,10 @@ Let us call `R` the rate at which this machine gets better (faster, cheaper, mor
 
 ## Applied abstraction
 
-![A bell curve showing the distribution of R, the rate of improvement.](/static/pages/r-factor-bell-curve.svg)
-
-*AI shifts this curve to the right and flattens*
+<figure>
+  <img src="/static/pages/r-factor-bell-curve.svg" alt="A bell curve showing the distribution of R, the rate of improvement.">
+  <figcaption>AI shifts this curve to the right and flattens.</figcaption>
+</figure>
 
 Let us refer to the rate of improvement as `R`. Without being too scientific, we posit that `R` lies on some bell-curve centered at zero. It can be positive, negative, or zero.
 
@@ -66,12 +67,12 @@ How you move `R` to the right will look different based on your role and seniori
 
 - This is not exhaustive. Many of you will find more creative ways to contribute to `R`!
 - The `R` a team generates will naturally fluctuate. Breaks must be taken, life happens.
-- Example sub-systems: user login, legal documents, rewards, manufactured spend.
-- Example super-systems: GraphQL, React Native, Kubernetes, on-call – technical & ops fabric.
+- Example sub-systems: user login, OLAP replication, fraud detection
+- Example super-systems: API standardization, React Native, Kubernetes, on-call–the operating ecosystem.
 
 ## Finding time, energy
 
-A common issue that engineers face is not having time to invest in `R`. The alternative is dire—the same problems persist day-to-day, the monotony and lack of “progress” facilitates burnout. There are only a few ways out and limited time to get the fly-wheel moving.
+A common issue that engineers face is not having time to invest in `R`. The alternative is dire—the same problems persist day-to-day and the monotony and lack of “progress” *will* burn out the team. There are only a few ways out and limited time to get the fly-wheel moving.
 
 Some thoughts:
 

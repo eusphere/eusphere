@@ -13,8 +13,9 @@ article { font-size: 1.15rem; line-height: 1.72; }
 article p { margin: 0 0 1.4rem; }
 article ul { margin: 0 0 1.6rem; padding-left: 1.4rem; }
 article li { padding-left: .35rem; margin: .6rem 0; }
-article img { display: block; width: min(100%, 500px); height: auto; margin: 2.5rem auto 1rem; }
-article img + p { text-align: center; color: #687651; font-size: .95rem; }
+article figure { margin: 2.5rem auto 2rem; width: min(100%, 500px); }
+article figure img { display: block; width: 100%; height: auto; }
+article figcaption { margin-top: 1rem; text-align: center; color: #687651; font-size: .95rem; font-style: italic; }
 article code { color: #3d7750; font: .92em/1.2 ui-monospace, SFMono-Regular, Menlo, monospace; }
 article table { width: 100%; margin: 2rem 0; border-collapse: collapse; font-size: .96em; line-height: 1.5; }
 article th, article td { padding: .75rem .7rem; text-align: left; vertical-align: top; border-bottom: 1px solid rgb(45 48 40 / 18%); }
