@@ -5,7 +5,7 @@ date: Apr 30, 2026
 description: A model for thinking about the strength of an engineering organization.
 ---
 
-# Definition
+## Definition
 
 Typically, the purpose of an engineering organization is to **solve problems for the business with technology**. However, the output of that organization is actually a *machine*.
 
@@ -13,7 +13,7 @@ Let us call `R` the rate at which this machine gets better (faster, cheaper, mor
 
 **A team that makes a machine 1% better each day is an elite team.** Many make the mistake of measuring the output of an engineering team by what the machine produces on a given day. That is the *current value* of the machine, but alone not indicative that engineering is weak or strong.
 
-# Applied abstraction
+## Applied abstraction
 
 <figure>
   <img src="/static/pages/r-factor-bell-curve.svg" alt="A bell curve showing the distribution of R, the rate of improvement.">
@@ -31,7 +31,7 @@ A high performance culture is one that:
 - Sets ambitious targets for `R` and strongly combats mean reversion.
 - Promotes those who make sustained contributions to `R`.
 
-# Contribution
+## Contribution
 
 How you move `R` to the right will look different based on your role and seniority. This is actually how things * usually* end up looking; there is **no hard boundary that stops you** from contributing in the same way senior peers do, for example.
 
@@ -63,14 +63,14 @@ How you move `R` to the right will look different based on your role and seniori
   </tbody>
 </table>
 
-## Additional notes
+### Additional notes
 
 - This is not exhaustive. Many of you will find more creative ways to contribute to `R`!
 - The `R` a team generates will naturally fluctuate. Breaks must be taken, life happens.
 - Example sub-systems: user login, OLAP replication, fraud detection
 - Example super-systems: API standardization, React Native, Kubernetes, on-call–the operating ecosystem.
 
-# Prioritization
+## Prioritization
 
 A common issue that engineers face is not having time to invest in `R`. The alternative is dire—the same problems persist day-to-day and the monotony and lack of “progress” *will* burn out the team. There are only a few ways out and limited time to get the fly-wheel moving.
 
@@ -81,7 +81,7 @@ Some thoughts:
 - **Investments have the most impact when you make them early.** Pushing hard at the beginning builds inertia and will make you much happier longer term. This is true for a given project or job, and even over the course of your career.
 - **If you are doing exactly the work given to you, *someone else* is the engineer.** Your job is to first audit the work you receive for upside and reconcile that with your own world model for where business opportunities are. If you are diligent here, you will find opportunities for optimization—if you get the organization to pursue those instead, you have done engineering.
 
-# Generality
+## Generality
 
 Firstly, this framework may be useful outside of software engineering. For example, you can apply many of the same principles when building a customer experience team. Reward members on the team who increase the number of tickets an agent can handle (canned response libraries, knowledge bases, etc.). That is *engineering*.
 
