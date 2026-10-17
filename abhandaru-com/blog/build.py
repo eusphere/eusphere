@@ -6,6 +6,7 @@ from pathlib import Path
 import re
 
 import mistune
+from resvg_py import svg_to_bytes
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -42,9 +43,21 @@ def main() -> None:
     has_image = bool(image)
     if image:
         image_url = image.group(1) or image.group(2)
+        image_width = "1200"
+        image_height = "630"
+        if image_url.startswith("/static/"):
+            source_image = ROOT / image_url.removeprefix("/")
+            if source_image.suffix.lower() == ".svg":
+                preview = OUTPUT.with_name(f"{OUTPUT.stem}-preview.png")
+                preview.write_bytes(svg_to_bytes(svg_path=str(source_image), width=1200))
+                image_url = f"/static/pages/{preview.name}"
+                image_width = "1200"
+                image_height = "600"
         if image_url.startswith("/"):
             image_url = f"{SITE_URL}{image_url}"
         values["IMAGE_URL"] = escape(image_url, quote=True)
+        values["IMAGE_WIDTH"] = image_width
+        values["IMAGE_HEIGHT"] = image_height
     values["CONTENT"] = MARKDOWN(markdown)
     html = render_template(TEMPLATE.read_text(), values, has_image)
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
