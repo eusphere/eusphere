@@ -37,7 +37,7 @@ How you move `R` to the right will look different based on your role and seniori
 
 <table>
   <thead>
-    <tr><th>Leveling</th><th>Contribution strategies</th></tr>
+    <tr><th>Leveling</th><th>Common levers</th></tr>
   </thead>
   <tbody>
     <tr>
@@ -78,7 +78,7 @@ Some thoughts:
 
 - **An aspiring high-performance team has a short window to achieve `R > 0`.** Think of this as reaching escape velocity. You only have so much fuel—this is the pain your team (together and individually) will tolerate as you pay down debts and work long hours.
 - **Contributing to `R` need not require “extra work”.** This is a common misconception. Doing the right work (prioritization) is critical and needs to happen at all levels of the organization. If low `R` work is competing with high `R` work, make your case to leadership. You can see many things they cannot.
-- **Investments have the most impact when you make them early.** Pushing hard at the beginning builds inertia and will make you much happier longer term. This is true for a given project or job, and even over the course of your career.
+- **Investments have the most impact when you make them early.** Switching to the right tooling, ironing out local testing, etc., can all have profound long term effects after compounding. This is true for a given project or job, and even over the course of your career.
 - **If you are doing exactly the work given to you, *someone else* is the engineer.** Your job is to first audit the work you receive for upside and reconcile that with your own world model for where opportunities are. If you are diligent here, you *will* find opportunities for optimization—if you get the organization to pursue those instead, you have done engineering.
 
 ## Generality
