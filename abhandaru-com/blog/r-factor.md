@@ -33,7 +33,7 @@ A high performance culture is one that:
 
 ## Contribution
 
-How you move `R` to the right will look different based on your role and seniority. This is actually how things * usually* end up looking; there is **no hard boundary that stops you** from contributing in the same way senior peers do, for example.
+How you move `R` to the right will look different based on your role and seniority. This is actually how things *usually* end up looking; there is **no hard boundary that stops you** from contributing in the same way senior peers do, for example.
 
 <table>
   <thead>
