@@ -7,11 +7,11 @@ description: A model for thinking about the strength of an engineering organizat
 
 ## Definition
 
-Typically, the purpose of an engineering organization is to **solve problems for the business with technology**. However, the output of that organization is actually a *machine*.
+The purpose of an engineering organization is to solve business problems with technology. But its more durable output is a *machine*: a set of manual and increasingly automated processes that sustain the organization’s goals over time.
 
-Let us call `R` the rate at which this machine gets better (faster, cheaper, more capable, etc.). To improve the machine requires consistent, intense problem solving. The ability to maintain a high rate of improvement directly correlates with the strength of your engineering.
+Let `R` represent the rate at which this machine improves—becoming more effective, efficient, reliable, or capable. We posit here that `R` is the most important measure of engineering strength. For example, **a team that makes a machine 1% better each day is an elite, perhaps mythical team**. Sustaining such a rate of improvement requires consistent, intense problem solving, and would result in ~38X the output after 1 year. At 1% per *week*, you are only looking at ~1.7X.
 
-**A team that makes a machine 1% better each day is an elite team.** Many make the mistake of measuring the output of an engineering team by what the machine produces on a given day. That is the *current value* of the machine, but alone not indicative that engineering is weak or strong.
+In practice, most teams cluster around modest rates of improvement. Teams that sustain very high values of `R` are expensive, difficult to assemble, and predictably scarce.
 
 ## Applied abstraction
 
@@ -20,10 +20,10 @@ Let us call `R` the rate at which this machine gets better (faster, cheaper, mor
   <figcaption>AI shifts this curve to the right and flattens.</figcaption>
 </figure>
 
-Let us refer to the rate of improvement as `R`. Without being too scientific, we posit that `R` lies on some bell-curve centered at zero. It can be positive, negative, or zero.
+The distribution of `R` across engineering teams is likely centered around a slightly positive value; we use zero here for simplicity. Most teams improve slowly, maintain their current state, or decline slightly. Teams that sustain very high positive values of `R` are rare.
 
 - **`R < 0` – The machine is slowing down.** It may be riddled with accruing tech debt, people may be leaving the team, each day the cost to run things increases, and so on.
-- **`R = 0` – The machine is maintaining speed.** Daily engineering efforts are counteracted by daily frictions, monotonous tasks, low or no opportunity for automation. This is KTLO in a nutshell.
+- **`R ≈ 0` – The machine is maintaining its current state.** Daily engineering efforts are roughly counteracted by friction, monotonous tasks, and low or no opportunity for automation. This is KTLO in a nutshell.
 - **`R > 0` – The machine is speeding up.** Engineering is happening. Automation is proliferating, improvements to the system have longevity, we are building momentum.
 
 A high performance culture is one that:
