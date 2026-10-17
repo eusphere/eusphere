@@ -9,11 +9,11 @@ description: A model for thinking about the strength of an engineering organizat
 
 The purpose of an engineering organization is to solve business problems with technology. But its more durable output is a *machine*: a set of manual and increasingly automated processes that sustain the organization’s goals over time.
 
-Let `R` represent the rate at which this machine improves—becoming more effective, efficient, reliable, or capable. We posit here that `R` is the most important measure of engineering strength. For example, **a team that makes a machine 1% better each day is an elite, perhaps mythical team**. Sustaining such a rate of improvement requires consistent, intense problem solving, and would result in ~38X the output after 1 year. At 1% per *week*, you are only looking at ~1.7X.
+Let `R` represent the rate at which this machine improves—becoming more effective, efficient, reliable, or capable. We posit here that `R` is the most important measure of engineering strength. In practice, most teams cluster around modest rates of improvement. Teams that sustain very high values of `R` are expensive, difficult to assemble, and predictably scarce.
 
-In practice, most teams cluster around modest rates of improvement. Teams that sustain very high values of `R` are expensive, difficult to assemble, and predictably scarce.
+For example, **a team that makes a machine 1% better each day is an elite, perhaps mythical team**. Sustaining such a rate of improvement requires consistent, intense problem solving, and would result in ~38X the output after 1 year. At 1% per *week*, you are only looking at ~1.7X.
 
-## Applied abstraction
+## Abstraction
 
 <figure>
   <img src="/static/pages/r-factor-bell-curve.svg" alt="A bell curve showing the distribution of R, the rate of improvement.">
@@ -79,12 +79,12 @@ Some thoughts:
 - **An aspiring high-performance team has a short window to achieve `R > 0`.** Think of this as reaching escape velocity. You only have so much fuel—this is the pain your team (together and individually) will tolerate as you pay down debts and work long hours.
 - **Contributing to `R` need not require “extra work”.** This is a common misconception. Doing the right work (prioritization) is critical and needs to happen at all levels of the organization. If low `R` work is competing with high `R` work, make your case to leadership. You can see many things they cannot.
 - **Investments have the most impact when you make them early.** Pushing hard at the beginning builds inertia and will make you much happier longer term. This is true for a given project or job, and even over the course of your career.
-- **If you are doing exactly the work given to you, *someone else* is the engineer.** Your job is to first audit the work you receive for upside and reconcile that with your own world model for where business opportunities are. If you are diligent here, you will find opportunities for optimization—if you get the organization to pursue those instead, you have done engineering.
+- **If you are doing exactly the work given to you, *someone else* is the engineer.** Your job is to first audit the work you receive for upside and reconcile that with your own world model for where opportunities are. If you are diligent here, you *will* find opportunities for optimization—if you get the organization to pursue those instead, you have done engineering.
 
 ## Generality
 
-Firstly, this framework may be useful outside of software engineering. For example, you can apply many of the same principles when building a customer experience team. Reward members on the team who increase the number of tickets an agent can handle (canned response libraries, knowledge bases, etc.). That is *engineering*.
+Firstly, this is **just a simple framework** and not some law of physics. I have found it useful in evaluating peers, qualifying gaps in or extraordinary performance, and discussing career growth and promotion. Hopefully it is useful to you.
 
-Second, AI related advancements do not contradict this framework. Instead, LLMs dramatically flatten the `R` bellcurve and moves it to the right. Improving the machine has never been easier for software engineers and this gives way to new pitfalls: When everything is cheap it is easy to lose discipline when allocating your attention to bottlenecks. **Prioritize rigorously**.
+Second, **anyone can do engineering**. You or I might improve the machine with automation and code. A customer support operator may improve the machine by expanding or refining the canned response library. A chief executive may optimize the relationships within and across organizations themselves. Therefore, you may be able to apply some of the ideas here more broadly.
 
-Finally, this is **just a simple framework** and not some law of physics. I have found it useful in evaluating peers, qualifying gaps in or extraordinary performance, and discussing career growth and promotion. Hopefully it is useful to you.
+Finally, AI related advancements do not contradict this framework. Instead, LLMs dramatically flatten the `R` bellcurve and moves it to the right. Improving the machine has never been easier for software engineers and this gives way to new pitfalls: When everything is cheap it is easy to lose discipline when allocating your attention to bottlenecks. **Please prioritize rigorously.**
